@@ -1,4 +1,5 @@
 import ProductCard from "./ProductCard";
+import { Button } from "@/components/ui/button";
 import beadedBags from "@/assets/beaded-bags.jpg";
 import beadedNecklace from "@/assets/beaded-necklace.jpg";
 import pearlBag from "@/assets/pearl-bag.jpg";
@@ -53,6 +54,12 @@ const ProductGrid = () => {
           {products.map((product) => (
             <ProductCard key={product.id} {...product} />
           ))}
+        </div>
+        
+        <div className="mt-12 text-center">
+          <Button size="lg" variant="outline" className="rounded-full px-8">
+            Shop All Products
+          </Button>
         </div>
       </div>
     </section>
