@@ -61,10 +61,16 @@ const Navigation = () => {
                   Home
                 </button>
                 <button 
+                  onClick={() => navigate("/shop")} 
+                  className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
+                >
+                  Shop
+                </button>
+                <button 
                   onClick={() => scrollToSection("products")} 
                   className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
                 >
-                  Products
+                  Featured
                 </button>
                 <button 
                   onClick={() => scrollToSection("about")} 
