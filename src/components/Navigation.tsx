@@ -100,7 +100,7 @@ const Navigation = () => {
               <Search className="h-5 w-5" />
             </Button>
             {user ? (
-              <Button variant="ghost" size="icon" onClick={handleLogout} className="rounded-full">
+              <Button variant="ghost" size="icon" onClick={() => navigate("/profile")} className="rounded-full">
                 <User className="h-5 w-5" />
               </Button>
             ) : (
