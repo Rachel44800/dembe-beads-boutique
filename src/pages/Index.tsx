@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import ProductGrid from "@/components/ProductGrid";
 import About from "@/components/About";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -18,8 +19,9 @@ const Index = () => {
         <About />
       </section>
       <section id="contact">
-        <Footer />
+        <Contact />
       </section>
+      <Footer />
     </div>
   );
 };
