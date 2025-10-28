@@ -3,14 +3,19 @@ import { ArrowRight } from "lucide-react";
 import heroBackground from "@/assets/hero-background.jpg";
 
 const Hero = () => {
+  const scrollToProducts = () => {
+    const element = document.getElementById('products');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="relative overflow-hidden py-20 md:py-32">
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center-top bg-no-repeat"
         style={{ backgroundImage: `url(${heroBackground})` }}
-      >
-        <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
-      </div>
+      />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="mx-auto max-w-3xl text-center">
@@ -22,8 +27,8 @@ const Hero = () => {
             From statement necklaces to elegant bags, each piece tells a unique story.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Button size="lg" className="rounded-full px-8 shadow-lg">
-              Shop Collection
+            <Button size="lg" className="rounded-full px-8 shadow-lg" onClick={scrollToProducts}>
+              Shop Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button size="lg" variant="secondary" className="rounded-full px-8 shadow-lg">

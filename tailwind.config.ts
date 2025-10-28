@@ -57,6 +57,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Custom elegant colors
+        gold: {
+          DEFAULT: "hsl(45 85% 65%)",
+          foreground: "hsl(220 15% 25%)",
+        },
+        rose: {
+          DEFAULT: "hsl(350 60% 70%)",
+          foreground: "hsl(220 15% 25%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
