@@ -85,7 +85,7 @@ const Navigation = () => {
               className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-foreground cursor-pointer"
               onClick={() => navigate("/")}
             >
-              Dembe Beads Boutique
+              Dembe Beads
             </h1>
           </div>
 

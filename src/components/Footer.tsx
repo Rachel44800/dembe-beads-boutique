@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="mb-4 flex items-center gap-2">
               <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-secondary" />
               <h3 className="text-lg font-semibold text-foreground">
-                Dembe Beads Boutique
+                Dembe Beads
               </h3>
             </div>
             <p className="mb-4 text-sm text-muted-foreground">
@@ -100,7 +100,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-6 sm:mt-8 border-t border-border pt-6 sm:pt-8 text-center text-xs sm:text-sm text-muted-foreground">
-          <p>&copy; 2025 Dembe Beads Boutique. All rights reserved.</p>
+          <p>&copy; 2025 Dembe Beads. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import FeaturedProducts from "@/components/FeaturedProducts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -119,6 +120,7 @@ const Checkout = () => {
             <Button onClick={() => navigate("/shop")}>Go to Shop</Button>
           </div>
         </div>
+        <FeaturedProducts />
         <Footer />
       </div>
     );
@@ -334,6 +336,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
+      <FeaturedProducts />
       <Footer />
     </div>
   );

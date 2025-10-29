@@ -11,7 +11,7 @@ const About = () => {
               Our Story
             </h2>
             <p className="mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-muted-foreground px-2">
-              Dembe Beads Boutique was born from a passion for creating beautiful, 
+              Dembe Beads was born from a passion for creating beautiful, 
               handcrafted accessories that celebrate individuality and elegance.
             </p>
           </div>

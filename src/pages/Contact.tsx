@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import FeaturedProducts from "@/components/FeaturedProducts";
 import Contact from "@/components/Contact";
 
 const ContactPage = () => {
@@ -9,6 +10,7 @@ const ContactPage = () => {
       <div className="flex-1">
         <Contact />
       </div>
+      <FeaturedProducts />
       <Footer />
     </div>
   );

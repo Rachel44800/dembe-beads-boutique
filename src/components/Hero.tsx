@@ -57,7 +57,7 @@ const Hero = () => {
         <div className="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden">
           <img
             src={heroPortrait}
-            alt="Dembe Beads Boutique Portrait"
+                  alt="Dembe Beads Portrait"
             className="w-full h-full object-cover object-center"
           />
         </div>
@@ -65,7 +65,7 @@ const Hero = () => {
         <div className="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden">
           <img
             src={heroBackground}
-            alt="Dembe Beads Boutique Background"
+                  alt="Dembe Beads Background"
             className="w-full h-full object-cover object-center"
           />
         </div>

@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import FeaturedProducts from "@/components/FeaturedProducts";
 import About from "@/components/About";
 
 const AboutPage = () => {
@@ -9,6 +10,7 @@ const AboutPage = () => {
       <div className="flex-1">
         <About />
       </div>
+      <FeaturedProducts />
       <Footer />
     </div>
   );

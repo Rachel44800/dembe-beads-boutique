@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import FeaturedProducts from "@/components/FeaturedProducts";
 import ProductCard from "@/components/ProductCard";
 import beadedBags from "@/assets/beaded-bags.jpg";
 import beadedNecklace from "@/assets/beaded-necklace.jpg";
@@ -223,6 +224,7 @@ const Shop = () => {
         </div>
       </section>
 
+      <FeaturedProducts />
       <Footer />
     </div>
   );
