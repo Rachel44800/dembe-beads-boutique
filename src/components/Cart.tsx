@@ -20,10 +20,13 @@ export const Cart = ({ open, onOpenChange }: CartProps) => {
   const navigate = useNavigate();
   const { items, removeFromCart, updateQuantity } = useCart();
 
-  const total = items.reduce((sum, item) => {
-    const price = parseFloat(item.price.replace("$", ""));
-    return sum + price * item.quantity;
-  }, 0);
+  const parsePrice = (priceStr: string) => {
+    const cleaned = priceStr.replace(/[^0-9.,-]/g, "").replace(",", ".");
+    const parsed = parseFloat(cleaned);
+    return isNaN(parsed) ? 0 : parsed;
+  };
+
+  const total = items.reduce((sum, item) => sum + parsePrice(item.price) * item.quantity, 0);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -105,9 +108,7 @@ export const Cart = ({ open, onOpenChange }: CartProps) => {
             <SheetFooter className="flex-col gap-4">
               <div className="flex items-center justify-between border-t border-border pt-4">
                 <span className="text-lg font-semibold text-foreground">Total</span>
-                <span className="text-2xl font-bold text-primary">
-                  ${total.toFixed(2)}
-                </span>
+                <span className="text-2xl font-bold text-primary">R{total.toFixed(2)}</span>
               </div>
               <Button
                 className="w-full"

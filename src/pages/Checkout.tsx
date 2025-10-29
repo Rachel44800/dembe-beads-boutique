@@ -27,12 +27,20 @@ const Checkout = () => {
     state: "",
     zipCode: "",
     notes: "",
+    shippingMethod: "postnet" as "postnet" | "pep",
+    postnetBranch: "",
+    pepAddress: "",
   });
 
-  const total = items.reduce((sum, item) => {
-    const price = parseFloat(item.price.replace("$", ""));
-    return sum + price * item.quantity;
-  }, 0);
+  const parsePrice = (priceStr: string) => {
+    // Accept formats like "$123.45", "R123.45", or plain numbers as strings
+    const cleaned = priceStr.replace(/[^0-9.,-]/g, "").replace(",", ".");
+    const parsed = parseFloat(cleaned);
+    return isNaN(parsed) ? 0 : parsed;
+  };
+
+  const total = items.reduce((sum, item) => sum + parsePrice(item.price) * item.quantity, 0);
+  const deposit = Math.max(0, total * 0.5);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -74,6 +82,13 @@ const Checkout = () => {
             total_amount: total,
             shipping_address: shippingAddress,
             status: "pending",
+            payment_status: "pending_deposit",
+            currency: "ZAR",
+            deposit_required: deposit,
+            shipping_method: formData.shippingMethod,
+            postnet_branch: formData.shippingMethod === "postnet" ? formData.postnetBranch : null,
+            pep_address: formData.shippingMethod === "pep" ? formData.pepAddress : null,
+            notes: formData.notes || null,
           },
         ])
         .select()
@@ -98,7 +113,7 @@ const Checkout = () => {
 
       // Clear cart and show success
       clearCart();
-      toast.success("Order placed successfully!");
+      toast.success("Order placed successfully! We will confirm your 50% deposit.");
       navigate("/profile");
     } catch (error) {
       console.error("Checkout error:", error);
@@ -149,6 +164,31 @@ const Checkout = () => {
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
+                      <Label className="text-sm">Shipping Method *</Label>
+                      <div className="flex gap-4">
+                        <label className="flex items-center gap-2 text-sm">
+                          <input
+                            type="radio"
+                            name="shippingMethod"
+                            value="postnet"
+                            checked={formData.shippingMethod === "postnet"}
+                            onChange={() => setFormData({ ...formData, shippingMethod: "postnet" })}
+                          />
+                          PostNet (collect at chosen branch)
+                        </label>
+                        <label className="flex items-center gap-2 text-sm">
+                          <input
+                            type="radio"
+                            name="shippingMethod"
+                            value="pep"
+                            checked={formData.shippingMethod === "pep"}
+                            onChange={() => setFormData({ ...formData, shippingMethod: "pep" })}
+                          />
+                          PEP (Paxi code for collection)
+                        </label>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
                       <Label htmlFor="fullName" className="text-sm">Full Name *</Label>
                       <Input
                         id="fullName"
@@ -196,6 +236,32 @@ const Checkout = () => {
                         className="text-base"
                       />
                     </div>
+                    {formData.shippingMethod === "postnet" && (
+                      <div className="space-y-2">
+                        <Label htmlFor="postnetBranch" className="text-sm">Nearest PostNet Branch *</Label>
+                        <Input
+                          id="postnetBranch"
+                          name="postnetBranch"
+                          value={formData.postnetBranch}
+                          onChange={handleInputChange}
+                          required
+                          className="text-base"
+                        />
+                      </div>
+                    )}
+                    {formData.shippingMethod === "pep" && (
+                      <div className="space-y-2">
+                        <Label htmlFor="pepAddress" className="text-sm">Your Address (for Paxi reference) *</Label>
+                        <Input
+                          id="pepAddress"
+                          name="pepAddress"
+                          value={formData.pepAddress}
+                          onChange={handleInputChange}
+                          required
+                          className="text-base"
+                        />
+                      </div>
+                    )}
                     <div className="grid gap-4 grid-cols-2 sm:grid-cols-3">
                       <div className="space-y-2 sm:col-span-1">
                         <Label htmlFor="city" className="text-sm">City *</Label>
@@ -251,7 +317,7 @@ const Checkout = () => {
                       {loading ? "Submitting Order..." : "Submit Order Request"}
                     </Button>
                     <p className="text-xs text-center text-muted-foreground mt-2">
-                      We'll contact you to arrange payment and shipping after your order is submitted.
+                      A 50% non-refundable deposit is required to confirm your order.
                     </p>
                   </form>
                 </CardContent>
@@ -287,18 +353,20 @@ const Checkout = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Subtotal</span>
-                      <span className="font-medium">${total.toFixed(2)}</span>
+                      <span className="font-medium">R{total.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Shipping</span>
                       <span className="font-medium">Calculated at delivery</span>
                     </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Deposit (50%)</span>
+                      <span className="font-semibold">R{deposit.toFixed(2)}</span>
+                    </div>
                     <Separator />
                     <div className="flex justify-between">
                       <span className="text-lg font-semibold">Total</span>
-                      <span className="text-2xl font-bold text-primary">
-                        ${total.toFixed(2)}
-                      </span>
+                      <span className="text-2xl font-bold text-primary">R{total.toFixed(2)}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -313,10 +381,14 @@ const Checkout = () => {
                         Payment Information
                       </h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        We currently don't have payment processing set up. After you submit your order, 
-                        we'll review it and contact you via email or phone to arrange payment and confirm 
-                        shipping details. Your order will be placed on hold until payment is confirmed.
+                        A 50% deposit (R{deposit.toFixed(2)}) is required to confirm your order. Please make a manual
+                        payment via EFT/bank transfer and send proof via WhatsApp. Your order will remain
+                        in Pending status until we confirm the deposit.
                       </p>
+                      <div className="mt-3 text-sm text-muted-foreground">
+                        <p><strong>WhatsApp:</strong> Send proof and your order number once submitted.</p>
+                        <p className="mt-1"><strong>Reference:</strong> Use your Order Number for EFT reference.</p>
+                      </div>
                     </div>
                     <div className="rounded-lg bg-background/50 p-4 border border-primary/30">
                       <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
@@ -324,9 +396,8 @@ const Checkout = () => {
                         Shipping Details
                       </h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        Shipping costs will be calculated based on your location and delivery preferences. 
-                        We'll contact you with shipping options and estimated delivery times after your order 
-                        is placed.
+                        PostNet: choose your nearest branch. PEP: we'll generate a Paxi code and send it to you
+                        for collection at your nearest PEP store.
                       </p>
                     </div>
                   </div>
