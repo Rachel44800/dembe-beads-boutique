@@ -1,4 +1,4 @@
-import { ShoppingBag, User, Search, Menu } from "lucide-react";
+import { ShoppingCart, UserCircle, Search, AlignJustify } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -45,7 +45,7 @@ const Navigation = () => {
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="shrink-0 h-9 w-9 sm:h-10 sm:w-10">
-                  <Menu className="h-5 w-5" />
+                  <AlignJustify className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px]">
@@ -95,15 +95,15 @@ const Navigation = () => {
             </Button>
             {user ? (
               <Button variant="ghost" size="icon" onClick={() => navigate("/profile")} className="rounded-full h-9 w-9 sm:h-10 sm:w-10">
-                <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                <UserCircle className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             ) : (
               <Button variant="ghost" size="icon" onClick={() => navigate("/auth")} className="rounded-full h-9 w-9 sm:h-10 sm:w-10">
-                <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                <UserCircle className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             )}
             <Button variant="ghost" size="icon" className="rounded-full relative h-9 w-9 sm:h-10 sm:w-10" onClick={() => setCartOpen(true)}>
-              <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
+              <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
               {itemCount > 0 && (
                 <span className="absolute -top-1 -right-1 h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-medium">
                   {itemCount}
