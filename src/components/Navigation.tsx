@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useCart } from "@/hooks/useCart";
+import { Cart } from "@/components/Cart";
 import {
   Sheet,
   SheetContent,
@@ -15,6 +16,7 @@ import {
 const Navigation = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [cartOpen, setCartOpen] = useState(false);
   const { itemCount } = useCart();
 
   useEffect(() => {
@@ -110,7 +112,7 @@ const Navigation = () => {
                 <User className="h-5 w-5" />
               </Button>
             )}
-            <Button variant="ghost" size="icon" className="rounded-full relative" onClick={() => navigate("/shop")}>
+            <Button variant="ghost" size="icon" className="rounded-full relative" onClick={() => setCartOpen(true)}>
               <ShoppingBag className="h-5 w-5" />
               {itemCount > 0 && (
                 <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-medium">
@@ -121,6 +123,7 @@ const Navigation = () => {
           </div>
         </div>
       </div>
+      <Cart open={cartOpen} onOpenChange={setCartOpen} />
     </nav>
   );
 };
