@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useNavigate } from "react-router-dom";
 
 interface CartProps {
   open: boolean;
@@ -16,6 +17,7 @@ interface CartProps {
 }
 
 export const Cart = ({ open, onOpenChange }: CartProps) => {
+  const navigate = useNavigate();
   const { items, removeFromCart, updateQuantity } = useCart();
 
   const total = items.reduce((sum, item) => {
@@ -107,7 +109,14 @@ export const Cart = ({ open, onOpenChange }: CartProps) => {
                   ${total.toFixed(2)}
                 </span>
               </div>
-              <Button className="w-full" size="lg">
+              <Button
+                className="w-full"
+                size="lg"
+                onClick={() => {
+                  onOpenChange(false);
+                  navigate("/checkout");
+                }}
+              >
                 Checkout
               </Button>
             </SheetFooter>
