@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, { message: "Name is required" }).max(100, { message: "Name must be less than 100 characters" }),
@@ -35,10 +36,26 @@ const Contact = () => {
     },
   });
 
-  const onSubmit = (data: ContactFormValues) => {
-    console.log("Contact form submitted:", data);
-    toast.success("Message sent successfully! We'll get back to you soon.");
-    form.reset();
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      const { error } = await supabase
+        .from("contact_messages")
+        .insert([
+          {
+            name: data.name,
+            email: data.email,
+            message: `${data.message}\n\nPhone: ${data.phone}`,
+          },
+        ]);
+
+      if (error) throw error;
+
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      toast.error("Failed to send message. Please try again.");
+    }
   };
 
   return (
