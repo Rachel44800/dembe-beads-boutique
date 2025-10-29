@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useCart } from "@/hooks/useCart";
 import {
   Sheet,
   SheetContent,
@@ -14,6 +15,7 @@ import {
 const Navigation = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const { itemCount } = useCart();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -108,8 +110,13 @@ const Navigation = () => {
                 <User className="h-5 w-5" />
               </Button>
             )}
-            <Button variant="ghost" size="icon" className="rounded-full">
+            <Button variant="ghost" size="icon" className="rounded-full relative" onClick={() => navigate("/shop")}>
               <ShoppingBag className="h-5 w-5" />
+              {itemCount > 0 && (
+                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-medium">
+                  {itemCount}
+                </span>
+              )}
             </Button>
           </div>
         </div>

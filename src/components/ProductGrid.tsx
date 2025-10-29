@@ -3,6 +3,8 @@ import beadedBags from "@/assets/beaded-bags.jpg";
 import beadedNecklace from "@/assets/beaded-necklace.jpg";
 import pearlBag from "@/assets/pearl-bag.jpg";
 import blackTie from "@/assets/black-tie.jpg";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const products = [
   {
@@ -36,6 +38,8 @@ const products = [
 ];
 
 const ProductGrid = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="products" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -56,11 +60,9 @@ const ProductGrid = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <a href="/shop">
-            <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-md font-medium transition-colors">
-              Shop All Products
-            </button>
-          </a>
+          <Button size="lg" onClick={() => navigate('/shop')}>
+            Shop All Products
+          </Button>
         </div>
       </div>
     </section>

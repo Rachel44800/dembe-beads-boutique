@@ -5,8 +5,9 @@ import beadedBags from "@/assets/beaded-bags.jpg";
 import beadedNecklace from "@/assets/beaded-necklace.jpg";
 import pearlBag from "@/assets/pearl-bag.jpg";
 import blackTie from "@/assets/black-tie.jpg";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useSearchParams } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -75,12 +76,20 @@ const allProducts = [
   }
 ];
 
-const categories = ["All", "Bags", "Necklaces", "Bracelets", "Earrings", "Ties"];
+const categories = ["All", "Bags", "Necklaces", "Bracelets", "Earrings", "Ties", "Key Holders"];
 
 const Shop = () => {
+  const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("featured");
   const [priceRange, setPriceRange] = useState("all");
+
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam && categories.includes(categoryParam)) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [searchParams]);
 
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = selectedCategory === "All" 
