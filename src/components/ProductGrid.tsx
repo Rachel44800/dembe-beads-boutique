@@ -54,6 +54,14 @@ const ProductGrid = () => {
             <ProductCard key={product.id} {...product} />
           ))}
         </div>
+
+        <div className="mt-12 text-center">
+          <a href="/shop">
+            <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-md font-medium transition-colors">
+              Shop All Products
+            </button>
+          </a>
+        </div>
       </div>
     </section>
   );
