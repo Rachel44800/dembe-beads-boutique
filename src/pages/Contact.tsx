@@ -1,17 +1,18 @@
 import Navigation from "@/components/Navigation";
-import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
+import Contact from "@/components/Contact";
 
-const Index = () => {
+const ContactPage = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <div className="flex-1">
-        <Hero />
+        <Contact />
       </div>
       <Footer />
     </div>
   );
 };
 
-export default Index;
+export default ContactPage;
+

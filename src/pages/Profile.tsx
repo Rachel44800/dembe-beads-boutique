@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { User as UserIcon, Package, Heart, Settings } from "lucide-react";
+import Footer from "@/components/Footer";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -110,9 +111,9 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
-      <div className="container mx-auto px-4 py-20">
+      <div className="flex-1 container mx-auto px-4 py-20">
         <div className="mb-8 flex items-center justify-between">
           <h1 className="text-3xl font-bold text-foreground">My Account</h1>
           <Button variant="outline" onClick={handleLogout}>
@@ -298,6 +299,7 @@ const Profile = () => {
           </TabsContent>
         </Tabs>
       </div>
+      <Footer />
     </div>
   );
 };

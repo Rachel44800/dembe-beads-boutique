@@ -5,8 +5,9 @@ import beadedBags from "@/assets/beaded-bags.jpg";
 import beadedNecklace from "@/assets/beaded-necklace.jpg";
 import pearlBag from "@/assets/pearl-bag.jpg";
 import blackTie from "@/assets/black-tie.jpg";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useSearchParams } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -75,12 +76,20 @@ const allProducts = [
   }
 ];
 
-const categories = ["All", "Bags", "Necklaces", "Bracelets", "Earrings", "Ties"];
+const categories = ["All", "Bags", "Necklaces", "Bracelets", "Earrings", "Ties", "Key Holders"];
 
 const Shop = () => {
+  const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("featured");
   const [priceRange, setPriceRange] = useState("all");
+
+  useEffect(() => {
+    const categoryParam = searchParams.get('category');
+    if (categoryParam && categories.includes(categoryParam)) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [searchParams]);
 
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = selectedCategory === "All" 
@@ -130,27 +139,27 @@ const Shop = () => {
     <div className="min-h-screen">
       <Navigation />
       
-      <div className="bg-gradient-to-b from-secondary/30 to-background py-12">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground text-center mb-4">
+      <div className="bg-gradient-to-b from-secondary/30 to-background py-8 sm:py-12">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground text-center mb-3 sm:mb-4">
             Shop All Products
           </h1>
-          <p className="text-center text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-center text-muted-foreground max-w-2xl mx-auto px-2">
             Explore our complete collection of handcrafted beaded accessories
           </p>
         </div>
       </div>
 
-      <section className="py-12">
-        <div className="container mx-auto px-4">
+      <section className="py-6 sm:py-8 md:py-12">
+        <div className="container mx-auto px-4 sm:px-6">
           {/* Category Filter */}
-          <div className="flex flex-wrap gap-2 justify-center mb-8">
+          <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-6 sm:mb-8">
             {categories.map((category) => (
               <Button
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category)}
-                className="rounded-full"
+                className="rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
               >
                 {category}
               </Button>
@@ -158,15 +167,15 @@ const Shop = () => {
           </div>
 
           {/* Sort and Filter Controls */}
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-8 pb-6 border-b border-border">
+          <div className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-border">
             <div className="flex items-center gap-2 text-muted-foreground">
               <SlidersHorizontal className="h-4 w-4" />
-              <span className="text-sm font-medium">
+              <span className="text-xs sm:text-sm font-medium">
                 {filteredAndSortedProducts.length} products
               </span>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
               {/* Price Range Filter */}
               <Select value={priceRange} onValueChange={setPriceRange}>
                 <SelectTrigger className="w-full sm:w-[180px]">
@@ -198,15 +207,15 @@ const Shop = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
             {filteredAndSortedProducts.map((product) => (
               <ProductCard key={product.id} {...product} />
             ))}
           </div>
 
           {filteredAndSortedProducts.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground text-lg">
+            <div className="text-center py-8 sm:py-12">
+              <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
                 No products found matching your filters.
               </p>
             </div>

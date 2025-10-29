@@ -3,33 +3,33 @@ import { Heart, Award, Sparkles } from "lucide-react";
 
 const About = () => {
   return (
-    <section id="about" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="about" className="py-10 sm:py-16 md:py-20 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="mx-auto max-w-4xl">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
+          <div className="mb-8 sm:mb-12 text-center">
+            <h2 className="mb-3 sm:mb-4 text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
               Our Story
             </h2>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+            <p className="mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-muted-foreground px-2">
               Dembe Beads Boutique was born from a passion for creating beautiful, 
               handcrafted accessories that celebrate individuality and elegance.
             </p>
           </div>
 
-          <div className="mb-12 rounded-3xl bg-gradient-to-br from-primary/5 via-secondary/10 to-accent/20 p-8 md:p-12">
-            <p className="mb-6 text-foreground">
+          <div className="mb-8 sm:mb-12 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-primary/5 via-secondary/10 to-accent/20 p-6 sm:p-8 md:p-12">
+            <p className="mb-4 sm:mb-6 text-sm sm:text-base text-foreground">
               Every piece in our collection is meticulously handcrafted with love and attention to detail. 
               We believe that accessories should be more than just additions to an outfit—they should 
               be expressions of personality, craftsmanship, and artistry.
             </p>
-            <p className="text-foreground">
+            <p className="text-sm sm:text-base text-foreground">
               From statement necklaces to elegant beaded bags, each item is created using premium 
               materials and traditional beading techniques passed down through generations. 
               We're committed to sustainable practices and supporting local artisans.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             <Card className="rounded-2xl border-border">
               <CardContent className="p-6 text-center">
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">

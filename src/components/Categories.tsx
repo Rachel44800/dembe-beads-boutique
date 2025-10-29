@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Gem, ShoppingBag, Sparkles, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   {
@@ -29,6 +30,12 @@ const categories = [
 ];
 
 const Categories = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryName: string) => {
+    navigate(`/shop?category=${categoryName}`);
+  };
+
   return (
     <section className="py-20 bg-gradient-to-b from-accent/30 to-background">
       <div className="container mx-auto px-4">
@@ -48,6 +55,7 @@ const Categories = () => {
               <Card 
                 key={category.name} 
                 className="group cursor-pointer overflow-hidden rounded-2xl border-border transition-all hover:shadow-lg hover:scale-105"
+                onClick={() => handleCategoryClick(category.name)}
               >
                 <CardContent className="p-8">
                   <div className={`mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${category.color}`}>

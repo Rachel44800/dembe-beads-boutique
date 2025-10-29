@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, { message: "Name is required" }).max(100, { message: "Name must be less than 100 characters" }),
@@ -35,28 +36,44 @@ const Contact = () => {
     },
   });
 
-  const onSubmit = (data: ContactFormValues) => {
-    console.log("Contact form submitted:", data);
-    toast.success("Message sent successfully! We'll get back to you soon.");
-    form.reset();
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      const { error } = await supabase
+        .from("contact_messages")
+        .insert([
+          {
+            name: data.name,
+            email: data.email,
+            message: `${data.message}\n\nPhone: ${data.phone}`,
+          },
+        ]);
+
+      if (error) throw error;
+
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      toast.error("Failed to send message. Please try again.");
+    }
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-background to-secondary/20">
-      <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
+    <section className="py-10 sm:py-16 md:py-20 bg-gradient-to-br from-background to-secondary/20">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="mb-8 sm:mb-12 text-center">
+          <h2 className="mb-3 sm:mb-4 text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
             Get In Touch
           </h2>
-          <p className="mx-auto max-w-2xl text-muted-foreground">
+          <p className="mx-auto max-w-2xl text-sm sm:text-base text-muted-foreground px-2">
             Have a question or want to place a custom order? We'd love to hear from you!
           </p>
         </div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
+        <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:gap-12">
           <div className="space-y-6">
-            <div className="rounded-lg border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-              <h3 className="mb-6 text-xl font-semibold text-foreground">
+            <div className="rounded-lg border border-border bg-card p-4 sm:p-6 shadow-[var(--shadow-card)]">
+              <h3 className="mb-4 sm:mb-6 text-lg sm:text-xl font-semibold text-foreground">
                 Contact Information
               </h3>
               <div className="space-y-4">
@@ -92,8 +109,8 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="rounded-lg border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-              <h3 className="mb-4 text-xl font-semibold text-foreground">
+            <div className="rounded-lg border border-border bg-card p-4 sm:p-6 shadow-[var(--shadow-card)]">
+              <h3 className="mb-4 text-lg sm:text-xl font-semibold text-foreground">
                 Business Hours
               </h3>
               <div className="space-y-2 text-sm">
@@ -113,12 +130,12 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="rounded-lg border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-            <h3 className="mb-6 text-xl font-semibold text-foreground">
+          <div className="rounded-lg border border-border bg-card p-4 sm:p-6 shadow-[var(--shadow-card)]">
+            <h3 className="mb-4 sm:mb-6 text-lg sm:text-xl font-semibold text-foreground">
               Send Us a Message
             </h3>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
                 <FormField
                   control={form.control}
                   name="name"

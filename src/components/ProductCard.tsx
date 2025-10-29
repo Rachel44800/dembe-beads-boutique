@@ -1,15 +1,23 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
+import { useCart } from "@/hooks/useCart";
 
 interface ProductCardProps {
+  id: number;
   name: string;
   price: string;
   image: string;
   category: string;
 }
 
-const ProductCard = ({ name, price, image, category }: ProductCardProps) => {
+const ProductCard = ({ id, name, price, image, category }: ProductCardProps) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart({ id, name, price, image, category });
+  };
+
   return (
     <Card className="group overflow-hidden rounded-2xl border-border bg-card transition-all hover:shadow-lg">
       <CardContent className="p-0">
@@ -31,7 +39,7 @@ const ProductCard = ({ name, price, image, category }: ProductCardProps) => {
           <h3 className="text-lg font-semibold text-foreground">{name}</h3>
           <p className="text-xl font-bold text-primary">{price}</p>
         </div>
-        <Button className="w-full rounded-full" size="sm">
+        <Button className="w-full rounded-full" size="sm" onClick={handleAddToCart}>
           <ShoppingCart className="mr-2 h-4 w-4" />
           Add to Cart
         </Button>

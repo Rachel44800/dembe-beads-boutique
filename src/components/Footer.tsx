@@ -1,11 +1,13 @@
 import { Instagram, Facebook, Mail, Phone } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
-    <footer id="contact" className="border-t border-border bg-gradient-to-br from-accent/20 to-secondary/10 py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid gap-8 md:grid-cols-4">
-          <div className="md:col-span-2">
+    <footer className="border-t border-border bg-gradient-to-br from-accent/20 to-secondary/10 py-8 sm:py-12">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 md:grid-cols-4">
+          <div className="sm:col-span-2">
             <div className="mb-4 flex items-center gap-2">
               <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-secondary" />
               <h3 className="text-lg font-semibold text-foreground">
@@ -18,19 +20,23 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <a 
-                href="#" 
+                href="https://instagram.com" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 <Instagram className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
+                href="https://facebook.com" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 <Facebook className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
+                href="mailto:info@dembebeads.com"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 <Mail className="h-5 w-5" />
@@ -42,24 +48,36 @@ const Footer = () => {
             <h4 className="mb-4 font-semibold text-foreground">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#home" className="text-muted-foreground hover:text-primary transition-colors">
+                <button 
+                  onClick={() => navigate("/")}
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   Home
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#products" className="text-muted-foreground hover:text-primary transition-colors">
-                  Products
-                </a>
+                <button 
+                  onClick={() => navigate("/shop")}
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Shop
+                </button>
               </li>
               <li>
-                <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">
+                <button 
+                  onClick={() => navigate("/about")}
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   About Us
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors">
+                <button 
+                  onClick={() => navigate("/contact")}
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   Contact
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -81,7 +99,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
+        <div className="mt-6 sm:mt-8 border-t border-border pt-6 sm:pt-8 text-center text-xs sm:text-sm text-muted-foreground">
           <p>&copy; 2025 Dembe Beads Boutique. All rights reserved.</p>
         </div>
       </div>
