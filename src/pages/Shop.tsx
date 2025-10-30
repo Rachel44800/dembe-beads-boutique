@@ -1,6 +1,5 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import FeaturedProducts from "@/components/FeaturedProducts";
 import ProductCard from "@/components/ProductCard";
 import beadedBags from "@/assets/beaded-bags.jpg";
 import beadedNecklace from "@/assets/beaded-necklace.jpg";
@@ -8,7 +7,8 @@ import pearlBag from "@/assets/pearl-bag.jpg";
 import blackTie from "@/assets/black-tie.jpg";
 import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import {
   Select,
   SelectContent,
@@ -17,6 +17,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SlidersHorizontal } from "lucide-react";
+import personalizedKeychain from "@/assets/Personalized beaded intial keychain.jpg";
+import malungu from "@/assets/Malungu.jpg";
+import beadedTop from "@/assets/beaded top.jpg";
+import beadedBag from "@/assets/beaded bag.jpg";
 
 const allProducts = [
   {
@@ -74,12 +78,41 @@ const allProducts = [
     price: "$55.00",
     image: beadedBags,
     category: "Bags"
+  },
+  {
+    id: 9,
+    name: "Personalized Beaded Initial Keychain",
+    price: "$22.00",
+    image: personalizedKeychain,
+    category: "Key Holders"
+  },
+  {
+    id: 10,
+    name: "Malungu Beaded Accessory",
+    price: "$45.00",
+    image: malungu,
+    category: "Accessories"
+  },
+  {
+    id: 11,
+    name: "Beaded Top",
+    price: "$120.00",
+    image: beadedTop,
+    category: "Clothing"
+  },
+  {
+    id: 12,
+    name: "Classic Beaded Bag",
+    price: "$88.00",
+    image: beadedBag,
+    category: "Bags"
   }
 ];
 
-const categories = ["All", "Bags", "Necklaces", "Bracelets", "Earrings", "Ties", "Key Holders"];
+const categories = ["All", "Bags", "Necklaces", "Bracelets", "Earrings", "Ties", "Key Holders", "Accessories", "Clothing"];
 
 const Shop = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("featured");
@@ -137,11 +170,14 @@ const Shop = () => {
   }, [selectedCategory, sortBy, priceRange]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <Navigation />
       
-      <div className="bg-gradient-to-b from-secondary/30 to-background py-8 sm:py-12">
+      <div className="bg-white py-6 sm:py-8">
         <div className="container mx-auto px-4 sm:px-6">
+          <div className="mb-2">
+            <Breadcrumbs />
+          </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground text-center mb-3 sm:mb-4">
             Shop All Products
           </h1>
@@ -151,7 +187,7 @@ const Shop = () => {
         </div>
       </div>
 
-      <section className="py-6 sm:py-8 md:py-12">
+      <section className="py-6 sm:py-8 md:py-12 bg-white">
         <div className="container mx-auto px-4 sm:px-6">
           {/* Category Filter */}
           <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-6 sm:mb-8">
@@ -168,7 +204,7 @@ const Shop = () => {
           </div>
 
           {/* Sort and Filter Controls */}
-          <div className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-border">
+          <div className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8">
             <div className="flex items-center gap-2 text-muted-foreground">
               <SlidersHorizontal className="h-4 w-4" />
               <span className="text-xs sm:text-sm font-medium">
@@ -224,7 +260,6 @@ const Shop = () => {
         </div>
       </section>
 
-      <FeaturedProducts />
       <Footer />
     </div>
   );

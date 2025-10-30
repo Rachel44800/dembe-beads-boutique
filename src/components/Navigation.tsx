@@ -60,7 +60,7 @@ const Navigation = () => {
                     Home
                   </button>
                   <button 
-                    onClick={() => navigate("/shop")} 
+                    onClick={() => navigate("/shop", { state: { from: "home" } })} 
                     className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
                   >
                     Shop

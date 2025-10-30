@@ -59,7 +59,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-10 sm:py-16 md:py-20 bg-gradient-to-br from-background to-secondary/20">
+    <section className="py-10 sm:py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="mb-8 sm:mb-12 text-center">
           <h2 className="mb-3 sm:mb-4 text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
@@ -83,8 +83,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-foreground">Email</p>
-                    <a href="mailto:info@dembebeads.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                      info@dembebeads.com
+                    <a href="mailto:dembemandavha@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      dembemandavha@gmail.com
                     </a>
                   </div>
                 </div>
@@ -94,7 +94,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-foreground">Phone</p>
-                    <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+                    <p className="text-sm text-muted-foreground">+27 79 363 7793</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

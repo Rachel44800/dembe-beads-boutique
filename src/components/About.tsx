@@ -1,70 +1,61 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Heart, Award, Sparkles } from "lucide-react";
-
 const About = () => {
   return (
-    <section id="about" className="py-10 sm:py-16 md:py-20 bg-background">
+    <section id="about" className="py-10 sm:py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="mx-auto max-w-4xl">
           <div className="mb-8 sm:mb-12 text-center">
             <h2 className="mb-3 sm:mb-4 text-2xl sm:text-3xl font-bold text-foreground md:text-4xl">
-              Our Story
+              About Dembe Beads
             </h2>
-            <p className="mx-auto max-w-2xl text-sm sm:text-base md:text-lg text-muted-foreground px-2">
-              Dembe Beads was born from a passion for creating beautiful, 
-              handcrafted accessories that celebrate individuality and elegance.
-            </p>
+            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-muted-foreground">
+              Keeping Tradition Alive
+            </h3>
           </div>
 
-          <div className="mb-8 sm:mb-12 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-primary/5 via-secondary/10 to-accent/20 p-6 sm:p-8 md:p-12">
-            <p className="mb-4 sm:mb-6 text-sm sm:text-base text-foreground">
-              Every piece in our collection is meticulously handcrafted with love and attention to detail. 
-              We believe that accessories should be more than just additions to an outfit—they should 
-              be expressions of personality, craftsmanship, and artistry.
+          <div className="space-y-6 sm:space-y-8 text-sm sm:text-base md:text-lg text-foreground">
+            <p>
+              Founded by Dembe Mandavha from Malavuwe village outside Thohoyandou, Dembe Beads is a beadwork
+              company dedicated to preserving and celebrating traditional beadcraft. Specializing in traditional
+              beads, makunda necklaces, beaded bags, and accessories, Dembe Beads brings cultural heritage to life
+              through every handcrafted piece.
             </p>
-            <p className="text-sm sm:text-base text-foreground">
-              From statement necklaces to elegant beaded bags, each item is created using premium 
-              materials and traditional beading techniques passed down through generations. 
-              We're committed to sustainable practices and supporting local artisans.
-            </p>
-          </div>
 
-          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-            <Card className="rounded-2xl border-border">
-              <CardContent className="p-6 text-center">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                  <Heart className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="mb-2 font-semibold text-foreground">Handmade with Love</h3>
-                <p className="text-sm text-muted-foreground">
-                  Every piece crafted with care and attention
-                </p>
-              </CardContent>
-            </Card>
+            <div>
+              <h4 className="text-lg sm:text-xl font-semibold text-foreground text-center mb-2">Our Story</h4>
+              <p>
+                Dembe Mandavha started her bead business in 2022 after years of helping her mother create beads.
+                Despite the challenges of being a young entrepreneur, she dedicates herself to ensuring every product
+                is crafted with care and precision. Her work has been featured in local media, recognizing her talent,
+                creativity, and commitment to tradition.
+              </p>
+            </div>
 
-            <Card className="rounded-2xl border-border">
-              <CardContent className="p-6 text-center">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary/20">
-                  <Award className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="mb-2 font-semibold text-foreground">Premium Quality</h3>
-                <p className="text-sm text-muted-foreground">
-                  Only the finest materials and beads
-                </p>
-              </CardContent>
-            </Card>
+            <div>
+              <h4 className="text-lg sm:text-xl font-semibold text-foreground text-center mb-2">Our Mission</h4>
+              <p>
+                Dembe Beads aims to keep tradition alive while empowering young people to take control of their futures.
+                Dembe encourages others to pursue their dreams, work hard, and create opportunities for themselves. She
+                believes that nothing is impossible and that dedication and faith are key to success.
+              </p>
+            </div>
 
-            <Card className="rounded-2xl border-border">
-              <CardContent className="p-6 text-center">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent/40">
-                  <Sparkles className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="mb-2 font-semibold text-foreground">Unique Designs</h3>
-                <p className="text-sm text-muted-foreground">
-                  One-of-a-kind pieces you won't find elsewhere
-                </p>
-              </CardContent>
-            </Card>
+            <div>
+              <h4 className="text-lg sm:text-xl font-semibold text-foreground text-center mb-2">Our Vision</h4>
+              <p>
+                Dembe’s goal is to one day open her own store and share her skills through platforms like YouTube,
+                teaching others the art of bead crafting. Through her work, she also contributes to economic growth and
+                development in her community.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-lg sm:text-xl font-semibold text-foreground text-center mb-2">Why Dembe Beads Matters</h4>
+              <p>
+                For Dembe, bead crafting is more than a business—it’s a passion that allows her to explore her
+                creativity daily, connect with her family through shared effort, and inspire others. Each piece reflects
+                dedication, cultural pride, and the desire to make a meaningful impact.
+              </p>
+            </div>
           </div>
         </div>
       </div>
