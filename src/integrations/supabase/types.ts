@@ -162,9 +162,17 @@ export type Database = {
       orders: {
         Row: {
           created_at: string
+          currency: string | null
+          deposit_required: number | null
           id: string
+          notes: string | null
           order_number: string
+          paxi_code: string | null
+          payment_status: string | null
+          pep_address: string | null
+          postnet_branch: string | null
           shipping_address: string
+          shipping_method: string | null
           status: string
           total_amount: number
           updated_at: string
@@ -172,9 +180,17 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          currency?: string | null
+          deposit_required?: number | null
           id?: string
+          notes?: string | null
           order_number: string
+          paxi_code?: string | null
+          payment_status?: string | null
+          pep_address?: string | null
+          postnet_branch?: string | null
           shipping_address: string
+          shipping_method?: string | null
           status?: string
           total_amount: number
           updated_at?: string
@@ -182,9 +198,17 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          currency?: string | null
+          deposit_required?: number | null
           id?: string
+          notes?: string | null
           order_number?: string
+          paxi_code?: string | null
+          payment_status?: string | null
+          pep_address?: string | null
+          postnet_branch?: string | null
           shipping_address?: string
+          shipping_method?: string | null
           status?: string
           total_amount?: number
           updated_at?: string
