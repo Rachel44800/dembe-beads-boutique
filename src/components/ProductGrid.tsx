@@ -10,28 +10,21 @@ const products = [
   {
     id: 1,
     name: "Beaded Mini Bags Collection",
-    price: "$45.00",
+    price: "R 675",
     image: beadedBags,
     category: "Bags"
   },
   {
     id: 2,
     name: "Statement Beaded Necklace",
-    price: "$68.00",
+    price: "R 1,020",
     image: beadedNecklace,
     category: "Necklaces"
   },
   {
-    id: 3,
-    name: "Pearl Beaded Handbag",
-    price: "$85.00",
-    image: pearlBag,
-    category: "Bags"
-  },
-  {
     id: 4,
     name: "Elegant Black Beaded Tie",
-    price: "$32.00",
+    price: "R 480",
     image: blackTie,
     category: "Ties"
   }

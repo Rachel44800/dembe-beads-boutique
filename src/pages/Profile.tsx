@@ -11,7 +11,6 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { User as UserIcon, Package, Heart, Settings } from "lucide-react";
 import Footer from "@/components/Footer";
-import FeaturedProducts from "@/components/FeaturedProducts";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -300,7 +299,6 @@ const Profile = () => {
           </TabsContent>
         </Tabs>
       </div>
-      <FeaturedProducts />
       <Footer />
     </div>
   );

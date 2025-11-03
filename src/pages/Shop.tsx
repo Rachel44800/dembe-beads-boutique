@@ -21,91 +21,88 @@ import personalizedKeychain from "@/assets/Personalized beaded intial keychain.j
 import malungu from "@/assets/Malungu.jpg";
 import beadedTop from "@/assets/beaded top.jpg";
 import beadedBag from "@/assets/beaded bag.jpg";
+import handNeckHeadSet from "@/assets/hand, neck, head set .jpg";
+import orangeBeadedBag from "@/assets/orange beaded bag.jpg";
+import handsNeckBeadsSet from "@/assets/hands and neck beads set.jpg";
+import beadsSet from "@/assets/beads set .jpg";
 
 const allProducts = [
   {
     id: 1,
     name: "Beaded Mini Bags Collection",
-    price: "$45.00",
+    price: "R 675",
     image: beadedBags,
     category: "Bags"
   },
   {
     id: 2,
     name: "Statement Beaded Necklace",
-    price: "$68.00",
+    price: "R 1,020",
     image: beadedNecklace,
     category: "Necklaces"
   },
   {
-    id: 3,
-    name: "Pearl Beaded Handbag",
-    price: "$85.00",
-    image: pearlBag,
-    category: "Bags"
-  },
-  {
     id: 4,
     name: "Elegant Black Beaded Tie",
-    price: "$32.00",
+    price: "R 480",
     image: blackTie,
     category: "Ties"
   },
   {
-    id: 5,
-    name: "Colorful Beaded Bracelet Set",
-    price: "$28.00",
-    image: beadedNecklace,
-    category: "Bracelets"
-  },
-  {
-    id: 6,
-    name: "Deluxe Pearl Evening Bag",
-    price: "$95.00",
-    image: pearlBag,
-    category: "Bags"
-  },
-  {
-    id: 7,
-    name: "Crystal Beaded Earrings",
-    price: "$38.00",
-    image: beadedNecklace,
-    category: "Earrings"
-  },
-  {
-    id: 8,
-    name: "Handwoven Beaded Clutch",
-    price: "$55.00",
-    image: beadedBags,
-    category: "Bags"
-  },
-  {
     id: 9,
     name: "Personalized Beaded Initial Keychain",
-    price: "$22.00",
+    price: "R 330",
     image: personalizedKeychain,
     category: "Key Holders"
   },
   {
     id: 10,
     name: "Malungu Beaded Accessory",
-    price: "$45.00",
+    price: "R 675",
     image: malungu,
     category: "Accessories"
   },
   {
     id: 11,
     name: "Beaded Top",
-    price: "$120.00",
+    price: "R 1,800",
     image: beadedTop,
     category: "Clothing"
   },
   {
     id: 12,
     name: "Classic Beaded Bag",
-    price: "$88.00",
+    price: "R 1,320",
     image: beadedBag,
     category: "Bags"
+  },
+  {
+    id: 13,
+    name: "Hand, Neck, Head Beaded Set",
+    price: "R 1,200",
+    image: handNeckHeadSet,
+    category: "Accessories"
+  },
+  {
+    id: 14,
+    name: "Orange Beaded Bag",
+    price: "R 850",
+    image: orangeBeadedBag,
+    category: "Bags"
+  },
+  {
+    id: 15,
+    name: "Hands and Neck Beads Set",
+    price: "R 1,100",
+    image: handsNeckBeadsSet,
+    category: "Accessories"
+  },
+  {
+    id: 16,
+    name: "Beads Set",
+    price: "R 950",
+    image: beadsSet,
+    category: "Accessories"
   }
 ];
 
@@ -133,11 +130,11 @@ const Shop = () => {
     // Filter by price range
     if (priceRange !== "all") {
       filtered = filtered.filter(product => {
-        const price = parseFloat(product.price.replace("$", ""));
-        if (priceRange === "under30") return price < 30;
-        if (priceRange === "30to60") return price >= 30 && price <= 60;
-        if (priceRange === "60to100") return price > 60 && price <= 100;
-        if (priceRange === "over100") return price > 100;
+        const price = parseFloat(product.price.replace(/[R\s,]/g, ""));
+        if (priceRange === "under30") return price < 450; // R450 ≈ $30
+        if (priceRange === "30to60") return price >= 450 && price <= 900; // R450-900 ≈ $30-60
+        if (priceRange === "60to100") return price > 900 && price <= 1500; // R900-1500 ≈ $60-100
+        if (priceRange === "over100") return price > 1500; // R1500+ ≈ $100+
         return true;
       });
     }
@@ -147,12 +144,12 @@ const Shop = () => {
     switch (sortBy) {
       case "price-low":
         sorted.sort((a, b) => 
-          parseFloat(a.price.replace("$", "")) - parseFloat(b.price.replace("$", ""))
+          parseFloat(a.price.replace(/[R\s,]/g, "")) - parseFloat(b.price.replace(/[R\s,]/g, ""))
         );
         break;
       case "price-high":
         sorted.sort((a, b) => 
-          parseFloat(b.price.replace("$", "")) - parseFloat(a.price.replace("$", ""))
+          parseFloat(b.price.replace(/[R\s,]/g, "")) - parseFloat(a.price.replace(/[R\s,]/g, ""))
         );
         break;
       case "name-az":
@@ -220,10 +217,10 @@ const Shop = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Prices</SelectItem>
-                  <SelectItem value="under30">Under $30</SelectItem>
-                  <SelectItem value="30to60">$30 - $60</SelectItem>
-                  <SelectItem value="60to100">$60 - $100</SelectItem>
-                  <SelectItem value="over100">Over $100</SelectItem>
+                  <SelectItem value="under30">Under R 450</SelectItem>
+                  <SelectItem value="30to60">R 450 - R 900</SelectItem>
+                  <SelectItem value="60to100">R 900 - R 1,500</SelectItem>
+                  <SelectItem value="over100">Over R 1,500</SelectItem>
                 </SelectContent>
               </Select>
 

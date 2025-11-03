@@ -1,33 +1,33 @@
 import { useNavigate } from "react-router-dom";
-import beadedBags from "@/assets/beaded-bags.jpg";
-import beadedNecklace from "@/assets/beaded-necklace.jpg";
-import pearlBag from "@/assets/pearl-bag.jpg";
-import blackTie from "@/assets/black-tie.jpg";
+import handNeckHeadSet from "@/assets/hand, neck, head set .jpg";
+import orangeBeadedBag from "@/assets/orange beaded bag.jpg";
+import handsNeckBeadsSet from "@/assets/hands and neck beads set.jpg";
+import beadsSet from "@/assets/beads set .jpg";
 
 const newArrivals = [
   {
-    id: 5,
-    name: "Colorful Beaded Bracelet Set",
-    image: beadedNecklace,
-    price: "R 420",
+    id: 13,
+    name: "Hand, Neck, Head Beaded Set",
+    image: handNeckHeadSet,
+    price: "R 1,200",
   },
   {
-    id: 6,
-    name: "Deluxe Pearl Evening Bag",
-    image: pearlBag,
-    price: "R 1,425",
+    id: 14,
+    name: "Orange Beaded Bag",
+    image: orangeBeadedBag,
+    price: "R 850",
   },
   {
-    id: 7,
-    name: "Crystal Beaded Earrings",
-    image: beadedNecklace,
-    price: "R 570",
+    id: 15,
+    name: "Hands and Neck Beads Set",
+    image: handsNeckBeadsSet,
+    price: "R 1,100",
   },
   {
-    id: 8,
-    name: "Handwoven Beaded Clutch",
-    image: beadedBags,
-    price: "R 825",
+    id: 16,
+    name: "Beads Set",
+    image: beadsSet,
+    price: "R 950",
   },
 ];
 

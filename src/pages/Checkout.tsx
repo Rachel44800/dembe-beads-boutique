@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import FeaturedProducts from "@/components/FeaturedProducts";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowLeft, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -135,7 +135,6 @@ const Checkout = () => {
             <Button onClick={() => navigate("/shop")}>Go to Shop</Button>
           </div>
         </div>
-        <FeaturedProducts />
         <Footer />
       </div>
     );
@@ -146,16 +145,11 @@ const Checkout = () => {
       <Navigation />
       <div className="flex-1 py-6 sm:py-8 md:py-12 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/shop")}
-            className="mb-4 sm:mb-6 text-sm sm:text-base"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Shop
-          </Button>
+          <div className="mb-2">
+            <Breadcrumbs />
+          </div>
 
-          <div className="grid gap-6 sm:gap-8 lg:grid-cols-2">
+          <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 mt-4 sm:mt-6">
             <div>
               <Card>
                 <CardHeader>
@@ -380,14 +374,12 @@ const Checkout = () => {
                         <span className="text-xl">💳</span>
                         Payment Information
                       </h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        A 50% deposit (R{deposit.toFixed(2)}) is required to confirm your order. Please make a manual
-                        payment via EFT/bank transfer and send proof via WhatsApp. Your order will remain
-                        in Pending status until we confirm the deposit.
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                        Please make a manual payment via EFT/bank transfer and send proof via WhatsApp. Your order will remain in Pending status until we confirm the deposit.
                       </p>
-                      <div className="mt-3 text-sm text-muted-foreground">
+                      <div className="text-sm text-muted-foreground space-y-1">
                         <p><strong>WhatsApp:</strong> Send proof and your order number once submitted.</p>
-                        <p className="mt-1"><strong>Reference:</strong> Use your Order Number for EFT reference.</p>
+                        <p><strong>Reference:</strong> Use your Order Number for EFT reference.</p>
                       </div>
                     </div>
                     <div className="rounded-lg bg-background/50 p-4 border border-primary/30">
@@ -396,8 +388,7 @@ const Checkout = () => {
                         Shipping Details
                       </h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        PostNet: choose your nearest branch. PEP: we'll generate a Paxi code and send it to you
-                        for collection at your nearest PEP store.
+                        PostNet: choose your nearest branch. PEP: we'll generate a Paxi code and send it to you for collection at your nearest PEP store.
                       </p>
                     </div>
                   </div>
@@ -407,7 +398,6 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-      <FeaturedProducts />
       <Footer />
     </div>
   );
