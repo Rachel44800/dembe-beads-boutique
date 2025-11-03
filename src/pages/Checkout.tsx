@@ -40,7 +40,12 @@ const Checkout = () => {
     return isNaN(parsed) ? 0 : parsed;
   };
 
-  const total = items.reduce((sum, item) => sum + parsePrice(item.price) * item.quantity, 0);
+  // Calculate subtotal for all items in cart (shipping is calculated once for entire order)
+  const subtotal = items.reduce((sum, item) => sum + parsePrice(item.price) * item.quantity, 0);
+  
+  // Flat shipping rate regardless of order value (once for entire order)
+  const shippingEstimate = 170;
+  const total = subtotal + shippingEstimate;
   const deposit = Math.max(0, total * 0.5);
 
   const handleInputChange = (
@@ -95,8 +100,19 @@ const Checkout = () => {
     }
 
     // Required fields
-    if (!formData.fullName) newErrors.fullName = "Full name is required";
-    if (!formData.address) newErrors.address = "Address is required";
+    if (!formData.fullName?.trim()) newErrors.fullName = "Full name is required";
+    if (!formData.address?.trim()) newErrors.address = "Address is required";
+    if (!formData.city?.trim()) newErrors.city = "City is required";
+    if (!formData.state?.trim()) newErrors.state = "State is required";
+    if (!formData.zipCode?.trim()) newErrors.zipCode = "ZIP Code is required";
+    
+    // Validate shipping method specific fields
+    if (formData.shippingMethod === "postnet" && !formData.postnetBranch?.trim()) {
+      newErrors.postnetBranch = "PostNet branch is required";
+    }
+    if (formData.shippingMethod === "pep" && !formData.pepAddress?.trim()) {
+      newErrors.pepAddress = "Address is required for PEP delivery";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -123,6 +139,64 @@ const Checkout = () => {
         toast.error("Please log in to complete your order");
         navigate("/auth");
         return;
+      }
+
+      // Ensure user profile exists (required for foreign key constraint)
+      // Use upsert to create or update profile in one operation
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .upsert(
+          {
+            id: user.id,
+            email: user.email || formData.email,
+            full_name: formData.fullName,
+            phone: formData.phone,
+          },
+          {
+            onConflict: "id",
+          }
+        );
+
+      if (profileError) {
+        console.error("Profile upsert error:", profileError);
+        // If upsert fails due to RLS, try insert first, then update
+        const { data: existingProfile } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("id", user.id)
+          .single();
+
+        if (!existingProfile) {
+          // Try insert
+          const { error: insertError } = await supabase
+            .from("profiles")
+            .insert([
+              {
+                id: user.id,
+                email: user.email || formData.email,
+                full_name: formData.fullName,
+                phone: formData.phone,
+              },
+            ]);
+
+          if (insertError) {
+            throw new Error(`Failed to create profile: ${insertError.message}. Please ensure your database migration has been applied.`);
+          }
+        } else {
+          // Update existing
+          const { error: updateError } = await supabase
+            .from("profiles")
+            .update({
+              full_name: formData.fullName,
+              phone: formData.phone,
+              email: formData.email,
+            })
+            .eq("id", user.id);
+
+          if (updateError) {
+            throw new Error(`Failed to update profile: ${updateError.message}`);
+          }
+        }
       }
 
       // Create shipping address string
@@ -153,14 +227,21 @@ const Checkout = () => {
         .select()
         .single();
 
-      if (orderError) throw orderError;
+      if (orderError) {
+        console.error("Order creation error:", orderError);
+        throw new Error(`Failed to create order: ${orderError.message}`);
+      }
+
+      if (!order) {
+        throw new Error("Order was not created");
+      }
 
       // Create order items
       const orderItems = items.map((item) => ({
         order_id: order.id,
         product_name: item.name,
         product_image: item.image,
-        price: parseFloat(item.price.replace("$", "")),
+        price: parsePrice(item.price),
         quantity: item.quantity,
       }));
 
@@ -168,15 +249,19 @@ const Checkout = () => {
         .from("order_items")
         .insert(orderItems);
 
-      if (itemsError) throw itemsError;
+      if (itemsError) {
+        console.error("Order items creation error:", itemsError);
+        throw new Error(`Failed to create order items: ${itemsError.message}`);
+      }
 
       // Clear cart and show success
       clearCart();
       toast.success("Order placed successfully! We will confirm your 50% deposit.");
       navigate("/profile");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Checkout error:", error);
-      toast.error("Failed to place order. Please try again.");
+      const errorMessage = error?.message || error?.toString() || "Failed to place order. Please try again.";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -249,8 +334,11 @@ const Checkout = () => {
                         value={formData.fullName}
                         onChange={handleInputChange}
                         required
-                        className="text-base"
+                        className={`text-base ${errors.fullName ? "border-destructive" : ""}`}
                       />
+                      {errors.fullName && (
+                        <p className="text-sm text-destructive">{errors.fullName}</p>
+                      )}
                     </div>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="space-y-2 sm:col-span-1">
@@ -310,8 +398,11 @@ const Checkout = () => {
                           value={formData.postnetBranch}
                           onChange={handleInputChange}
                           required
-                          className="text-base"
+                          className={`text-base ${errors.postnetBranch ? "border-destructive" : ""}`}
                         />
+                        {errors.postnetBranch && (
+                          <p className="text-sm text-destructive">{errors.postnetBranch}</p>
+                        )}
                       </div>
                     )}
                     {formData.shippingMethod === "pep" && (
@@ -323,8 +414,11 @@ const Checkout = () => {
                           value={formData.pepAddress}
                           onChange={handleInputChange}
                           required
-                          className="text-base"
+                          className={`text-base ${errors.pepAddress ? "border-destructive" : ""}`}
                         />
+                        {errors.pepAddress && (
+                          <p className="text-sm text-destructive">{errors.pepAddress}</p>
+                        )}
                       </div>
                     )}
                     <div className="grid gap-4 grid-cols-2 sm:grid-cols-3">
@@ -336,8 +430,11 @@ const Checkout = () => {
                           value={formData.city}
                           onChange={handleInputChange}
                           required
-                          className="text-base"
+                          className={`text-base ${errors.city ? "border-destructive" : ""}`}
                         />
+                        {errors.city && (
+                          <p className="text-sm text-destructive">{errors.city}</p>
+                        )}
                       </div>
                       <div className="space-y-2 sm:col-span-1">
                         <Label htmlFor="state" className="text-sm">State *</Label>
@@ -347,8 +444,11 @@ const Checkout = () => {
                           value={formData.state}
                           onChange={handleInputChange}
                           required
-                          className="text-base"
+                          className={`text-base ${errors.state ? "border-destructive" : ""}`}
                         />
+                        {errors.state && (
+                          <p className="text-sm text-destructive">{errors.state}</p>
+                        )}
                       </div>
                       <div className="space-y-2 col-span-2 sm:col-span-1">
                         <Label htmlFor="zipCode" className="text-sm">ZIP Code *</Label>
@@ -358,8 +458,11 @@ const Checkout = () => {
                           value={formData.zipCode}
                           onChange={handleInputChange}
                           required
-                          className="text-base"
+                          className={`text-base ${errors.zipCode ? "border-destructive" : ""}`}
                         />
+                        {errors.zipCode && (
+                          <p className="text-sm text-destructive">{errors.zipCode}</p>
+                        )}
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -418,11 +521,11 @@ const Checkout = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Subtotal</span>
-                      <span className="font-medium">R{total.toFixed(2)}</span>
+                      <span className="font-medium">R{subtotal.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Shipping</span>
-                      <span className="font-medium">Calculated at delivery</span>
+                      <span className="text-muted-foreground">Estimated Shipping</span>
+                      <span className="font-medium">R{shippingEstimate.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Deposit (50%)</span>

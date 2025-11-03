@@ -7,10 +7,12 @@ import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { products } from "@/data/products";
+import { useCart } from "@/hooks/useCart";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToCart, updateQuantity, items } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -22,29 +24,62 @@ const ProductDetail = () => {
   }, [id]);
 
   const parsePrice = (price: string) => {
-    return parseFloat(price.replace(/[^0-9.]/g, ""));
+    return parseFloat(price.replace(/[^0-9.]/g, "").replace(",", ""));
   };
 
-  const subtotal = product ? parsePrice(product.price) * quantity : 0;
-  const shippingEstimate = 150; // Fixed shipping estimate
-  const total = subtotal + shippingEstimate;
+  // Get other cart items (excluding current product if it's in cart)
+  const otherCartItems = items.filter(item => item.id !== Number(id));
+
+  // Calculate cart items subtotal
+  const cartSubtotal = otherCartItems.reduce((sum, item) => {
+    return sum + parsePrice(item.price) * item.quantity;
+  }, 0);
+
+  // Calculate selected product subtotal
+  const selectedProductSubtotal = product ? parsePrice(product.price) * quantity : 0;
+
+  // Combined subtotal (selected product + existing cart items)
+  const combinedSubtotal = selectedProductSubtotal + cartSubtotal;
+
+  // Flat shipping rate regardless of order value
+  const shippingEstimate = 170;
+  const total = combinedSubtotal + shippingEstimate;
 
   const handleCheckout = async () => {
+    // Add product to cart first (before checking auth) so it's available after login
+    const existingCartItem = items.find(item => item.id === product.id);
+    if (existingCartItem) {
+      // If product is already in cart, update quantity to include selected quantity
+      updateQuantity(product.id, existingCartItem.quantity + quantity);
+    } else {
+      // Add product to cart with selected quantity
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+      });
+      
+      // If quantity > 1, update it to the selected quantity
+      if (quantity > 1) {
+        setTimeout(() => {
+          updateQuantity(product.id, quantity);
+        }, 100);
+      }
+    }
+
+    // Check if user is authenticated
     const { data: { user } } = await supabase.auth.getUser();
     
     if (!user) {
-      // Store the intended destination
-      sessionStorage.setItem("redirectAfterLogin", `/product/${id}`);
+      // Store the intended destination to return to checkout after login
+      sessionStorage.setItem("redirectAfterLogin", "/checkout");
       navigate("/auth");
       return;
     }
-
-    // Store product details for checkout
-    sessionStorage.setItem("checkoutProduct", JSON.stringify({
-      ...product,
-      quantity
-    }));
     
+    // Navigate to checkout
     navigate("/checkout");
   };
 
@@ -123,10 +158,41 @@ const ProductDetail = () => {
                     </div>
                   </div>
 
+                  {/* Selected Product Summary */}
+                  <div className="space-y-2 border-t pt-4 mb-4">
+                    <p className="text-xs font-medium text-muted-foreground mb-2">Selected Product</p>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">{product.name} × {quantity}</span>
+                      <span className="font-medium">R {selectedProductSubtotal.toFixed(2)}</span>
+                    </div>
+                  </div>
+
+                  {/* Other Cart Items */}
+                  {otherCartItems.length > 0 && (
+                    <div className="space-y-3 border-t pt-4 mb-4">
+                      <p className="text-xs font-medium text-muted-foreground mb-2">Other Items in Cart</p>
+                      {otherCartItems.map((item) => (
+                        <div key={item.id} className="flex items-center gap-3">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="h-12 w-12 rounded-md object-cover flex-shrink-0"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm text-muted-foreground truncate">{item.name}</p>
+                            <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                          </div>
+                          <span className="font-medium text-sm flex-shrink-0">R {(parsePrice(item.price) * item.quantity).toFixed(2)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Combined Summary */}
                   <div className="space-y-2 border-t pt-4">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Subtotal</span>
-                      <span className="font-medium">R {subtotal.toFixed(2)}</span>
+                      <span className="text-muted-foreground">Combined Subtotal</span>
+                      <span className="font-medium">R {combinedSubtotal.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Estimated Shipping</span>

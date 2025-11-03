@@ -59,14 +59,27 @@ const Auth = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (session) {
-          navigate("/");
+          // Check if there's a redirect path stored
+          const redirectPath = sessionStorage.getItem("redirectAfterLogin");
+          if (redirectPath) {
+            sessionStorage.removeItem("redirectAfterLogin");
+            navigate(redirectPath);
+          } else {
+            navigate("/");
+          }
         }
       }
     );
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        navigate("/");
+        const redirectPath = sessionStorage.getItem("redirectAfterLogin");
+        if (redirectPath) {
+          sessionStorage.removeItem("redirectAfterLogin");
+          navigate(redirectPath);
+        } else {
+          navigate("/");
+        }
       }
     });
 
@@ -89,7 +102,14 @@ const Auth = () => {
         }
       } else {
         toast.success("Welcome back!");
-        navigate("/");
+        // Check if there's a redirect path stored
+        const redirectPath = sessionStorage.getItem("redirectAfterLogin");
+        if (redirectPath) {
+          sessionStorage.removeItem("redirectAfterLogin");
+          navigate(redirectPath);
+        } else {
+          navigate("/");
+        }
       }
     } catch (error) {
       toast.error("An unexpected error occurred");
@@ -122,7 +142,14 @@ const Auth = () => {
         }
       } else {
         toast.success("Account created successfully! You're now logged in.");
-        navigate("/");
+        // Check if there's a redirect path stored
+        const redirectPath = sessionStorage.getItem("redirectAfterLogin");
+        if (redirectPath) {
+          sessionStorage.removeItem("redirectAfterLogin");
+          navigate(redirectPath);
+        } else {
+          navigate("/");
+        }
       }
     } catch (error) {
       toast.error("An unexpected error occurred");
