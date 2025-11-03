@@ -97,6 +97,8 @@ const Auth = () => {
       if (error) {
         if (error.message.includes("Invalid login credentials")) {
           toast.error("Invalid email or password");
+        } else if (error.message.includes("Email not confirmed") || error.message.includes("email_not_confirmed")) {
+          toast.error("Please check your email and click the confirmation link to verify your account");
         } else {
           toast.error(error.message);
         }
@@ -141,15 +143,11 @@ const Auth = () => {
           toast.error(error.message);
         }
       } else {
-        toast.success("Account created successfully! You're now logged in.");
-        // Check if there's a redirect path stored
-        const redirectPath = sessionStorage.getItem("redirectAfterLogin");
-        if (redirectPath) {
-          sessionStorage.removeItem("redirectAfterLogin");
-          navigate(redirectPath);
-        } else {
-          navigate("/");
-        }
+        toast.success("Account created! Please check your email and click the confirmation link to verify your account.", {
+          duration: 5000,
+        });
+        // Don't navigate away - user needs to confirm email first
+        // They can log in after confirming
       }
     } catch (error) {
       toast.error("An unexpected error occurred");

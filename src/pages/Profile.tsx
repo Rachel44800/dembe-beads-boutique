@@ -199,7 +199,7 @@ const Profile = () => {
                             </p>
                           </div>
                           <div className="text-right">
-                            <p className="font-semibold text-foreground">${order.total_amount}</p>
+                            <p className="font-semibold text-foreground">R{order.total_amount}</p>
                             <p className="text-sm capitalize text-muted-foreground">{order.status}</p>
                           </div>
                         </div>
@@ -218,7 +218,7 @@ const Profile = () => {
                                   <p className="text-sm font-medium text-foreground">{item.product_name}</p>
                                   <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
                                 </div>
-                                <p className="text-sm font-medium text-foreground">${item.price}</p>
+                                <p className="text-sm font-medium text-foreground">R{item.price}</p>
                               </div>
                             ))}
                           </div>
@@ -253,7 +253,7 @@ const Profile = () => {
                         )}
                         <div className="p-4">
                           <h3 className="font-semibold text-foreground">{item.product_name}</h3>
-                          <p className="mt-1 font-semibold text-primary">${item.product_price}</p>
+                          <p className="mt-1 font-semibold text-primary">R{item.product_price}</p>
                           <Button
                             variant="destructive"
                             size="sm"
