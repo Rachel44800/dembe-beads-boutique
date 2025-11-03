@@ -1,10 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-import beadedBags from "@/assets/beaded-bags.jpg";
-import beadedNecklace from "@/assets/beaded-necklace.jpg";
-import pearlBag from "@/assets/pearl-bag.jpg";
-import blackTie from "@/assets/black-tie.jpg";
 import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -17,94 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SlidersHorizontal } from "lucide-react";
-import personalizedKeychain from "@/assets/Personalized beaded intial keychain.jpg";
-import malungu from "@/assets/Malungu.jpg";
-import beadedTop from "@/assets/beaded top.jpg";
-import beadedBag from "@/assets/beaded bag.jpg";
-import handNeckHeadSet from "@/assets/hand, neck, head set .jpg";
-import orangeBeadedBag from "@/assets/orange beaded bag.jpg";
-import handsNeckBeadsSet from "@/assets/hands and neck beads set.jpg";
-import beadsSet from "@/assets/beads set .jpg";
-
-const allProducts = [
-  {
-    id: 1,
-    name: "Beaded Mini Bags Collection",
-    price: "R 675",
-    image: beadedBags,
-    category: "Bags"
-  },
-  {
-    id: 2,
-    name: "Statement Beaded Necklace",
-    price: "R 1,020",
-    image: beadedNecklace,
-    category: "Necklaces"
-  },
-  {
-    id: 4,
-    name: "Elegant Black Beaded Tie",
-    price: "R 480",
-    image: blackTie,
-    category: "Ties"
-  },
-  {
-    id: 9,
-    name: "Personalized Beaded Initial Keychain",
-    price: "R 330",
-    image: personalizedKeychain,
-    category: "Key Holders"
-  },
-  {
-    id: 10,
-    name: "Malungu Beaded Accessory",
-    price: "R 675",
-    image: malungu,
-    category: "Accessories"
-  },
-  {
-    id: 11,
-    name: "Beaded Top",
-    price: "R 1,800",
-    image: beadedTop,
-    category: "Clothing"
-  },
-  {
-    id: 12,
-    name: "Classic Beaded Bag",
-    price: "R 1,320",
-    image: beadedBag,
-    category: "Bags"
-  },
-  {
-    id: 13,
-    name: "Hand, Neck, Head Beaded Set",
-    price: "R 1,200",
-    image: handNeckHeadSet,
-    category: "Accessories"
-  },
-  {
-    id: 14,
-    name: "Orange Beaded Bag",
-    price: "R 850",
-    image: orangeBeadedBag,
-    category: "Bags"
-  },
-  {
-    id: 15,
-    name: "Hands and Neck Beads Set",
-    price: "R 1,100",
-    image: handsNeckBeadsSet,
-    category: "Accessories"
-  },
-  {
-    id: 16,
-    name: "Beads Set",
-    price: "R 950",
-    image: beadsSet,
-    category: "Accessories"
-  }
-];
+import { products as allProducts } from "@/data/products";
 
 const categories = ["All", "Bags", "Necklaces", "Bracelets", "Earrings", "Ties", "Key Holders", "Accessories", "Clothing"];
 

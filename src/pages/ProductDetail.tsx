@@ -6,6 +6,7 @@ import { Minus, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import { products } from "@/data/products";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -15,22 +16,9 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const { data, error } = await supabase
-        .from("products")
-        .select("*")
-        .eq("id", id)
-        .single();
-
-      if (error) {
-        console.error("Error fetching product:", error);
-      } else {
-        setProduct(data);
-      }
-      setLoading(false);
-    };
-
-    fetchProduct();
+    const foundProduct = products.find(p => p.id === Number(id));
+    setProduct(foundProduct || null);
+    setLoading(false);
   }, [id]);
 
   const parsePrice = (price: string) => {
@@ -93,7 +81,7 @@ const ProductDetail = () => {
             {/* Product Image */}
             <div className="aspect-square overflow-hidden rounded-2xl bg-secondary/20">
               <img
-                src={product.image_url}
+                src={product.image}
                 alt={product.name}
                 className="h-full w-full object-cover"
               />
