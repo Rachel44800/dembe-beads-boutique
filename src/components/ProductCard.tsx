@@ -1,7 +1,6 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
-import { useCart } from "@/hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 interface ProductCardProps {
   id: number;
@@ -12,10 +11,10 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ id, name, price, image, category }: ProductCardProps) => {
-  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
-  const handleAddToCart = () => {
-    addToCart({ id, name, price, image, category });
+  const handleBuyNow = () => {
+    navigate(`/product/${id}`);
   };
 
   return (
@@ -39,9 +38,8 @@ const ProductCard = ({ id, name, price, image, category }: ProductCardProps) => 
           <h3 className="text-lg font-semibold text-foreground">{name}</h3>
           <p className="text-xl font-bold text-primary">{price}</p>
         </div>
-        <Button className="w-full rounded-full" size="sm" onClick={handleAddToCart}>
-          <ShoppingCart className="mr-2 h-4 w-4" />
-          Add to Cart
+        <Button className="w-full rounded-full" size="sm" onClick={handleBuyNow}>
+          Buy Now
         </Button>
       </CardFooter>
     </Card>

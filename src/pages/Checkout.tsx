@@ -18,6 +18,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const { items, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -45,15 +46,73 @@ const Checkout = () => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { name, value } = e.target;
+    
+    // Phone validation: only allow digits and limit to 10
+    if (name === "phone") {
+      const digitsOnly = value.replace(/\D/g, "");
+      if (digitsOnly.length <= 10) {
+        setFormData({
+          ...formData,
+          [name]: digitsOnly,
+        });
+      }
+      return;
+    }
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const validateForm = async () => {
+    const newErrors: Record<string, string> = {};
+
+    // Phone validation
+    if (!formData.phone.startsWith("0")) {
+      newErrors.phone = "Phone number must start with 0";
+    }
+    if (formData.phone.length !== 10) {
+      newErrors.phone = "Phone number must be exactly 10 digits";
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    // Check if email matches logged-in user
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user && formData.email !== user.email) {
+      newErrors.email = "Email must match your logged-in account";
+    }
+
+    // Required fields
+    if (!formData.fullName) newErrors.fullName = "Full name is required";
+    if (!formData.address) newErrors.address = "Address is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    // Validate form
+    const isValid = await validateForm();
+    if (!isValid) {
+      toast.error("Please fix the errors in the form");
+      setLoading(false);
+      return;
+    }
 
     try {
       // Check if user is authenticated
@@ -196,39 +255,51 @@ const Checkout = () => {
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div className="space-y-2 sm:col-span-1">
                         <Label htmlFor="email" className="text-sm">Email *</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          className="text-base"
-                        />
+                         <Input
+                           id="email"
+                           name="email"
+                           type="email"
+                           value={formData.email}
+                           onChange={handleInputChange}
+                           required
+                           className={`text-base ${errors.email ? "border-destructive" : ""}`}
+                         />
+                         {errors.email && (
+                           <p className="text-sm text-destructive">{errors.email}</p>
+                         )}
                       </div>
                       <div className="space-y-2 sm:col-span-1">
                         <Label htmlFor="phone" className="text-sm">Phone *</Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          required
-                          className="text-base"
-                        />
+                         <Input
+                           id="phone"
+                           name="phone"
+                           type="tel"
+                           value={formData.phone}
+                           onChange={handleInputChange}
+                           placeholder="e.g., 0721234567"
+                           maxLength={10}
+                           required
+                           className={`text-base ${errors.phone ? "border-destructive" : ""}`}
+                         />
+                         {errors.phone && (
+                           <p className="text-sm text-destructive">{errors.phone}</p>
+                         )}
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="address" className="text-sm">Address *</Label>
-                      <Input
-                        id="address"
-                        name="address"
-                        value={formData.address}
-                        onChange={handleInputChange}
-                        required
-                        className="text-base"
-                      />
+                       <Input
+                         id="address"
+                         name="address"
+                         value={formData.address}
+                         onChange={handleInputChange}
+                         placeholder="e.g., 123 Main Street, Pretoria"
+                         required
+                         className={`text-base ${errors.address ? "border-destructive" : ""}`}
+                       />
+                       {errors.address && (
+                         <p className="text-sm text-destructive">{errors.address}</p>
+                       )}
                     </div>
                     {formData.shippingMethod === "postnet" && (
                       <div className="space-y-2">
