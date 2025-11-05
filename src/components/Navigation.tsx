@@ -44,7 +44,7 @@ const Navigation = () => {
           <div className="flex items-center gap-2 sm:gap-4">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="shrink-0 h-9 w-9 sm:h-10 sm:w-10">
+                <Button variant="ghost" size="icon" className="shrink-0 h-9 w-9 sm:h-10 sm:w-10 hover-brand-bg">
                   <AlignJustify className="h-5 w-5" />
                 </Button>
               </SheetTrigger>

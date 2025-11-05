@@ -102,7 +102,7 @@ const Shop = () => {
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category)}
-                className="rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                className={`rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 ${selectedCategory !== category ? 'hover-brand-bg' : ''}`}
               >
                 {category}
               </Button>
@@ -121,7 +121,7 @@ const Shop = () => {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
               {/* Price Range Filter */}
               <Select value={priceRange} onValueChange={setPriceRange}>
-                <SelectTrigger className="w-full sm:w-[180px]">
+                <SelectTrigger className="w-full sm:w-[180px] hover-brand-bg transition-all">
                   <SelectValue placeholder="Price Range" />
                 </SelectTrigger>
                 <SelectContent>
@@ -135,7 +135,7 @@ const Shop = () => {
 
               {/* Sort By */}
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-full sm:w-[180px]">
+                <SelectTrigger className="w-full sm:w-[180px] hover-brand-bg transition-all">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
