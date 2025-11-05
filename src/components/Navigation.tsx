@@ -55,25 +55,25 @@ const Navigation = () => {
                 <div className="mt-8 flex flex-col gap-4">
                   <button 
                     onClick={() => navigate("/")} 
-                    className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
+                    className="text-left text-lg font-medium text-foreground hover-brand-text hover-brand-underline py-2"
                   >
                     Home
                   </button>
                   <button 
                     onClick={() => navigate("/shop", { state: { from: "home" } })} 
-                    className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
+                    className="text-left text-lg font-medium text-foreground hover-brand-text hover-brand-underline py-2"
                   >
                     Shop
                   </button>
                   <button 
                     onClick={() => navigate("/about")} 
-                    className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
+                    className="text-left text-lg font-medium text-foreground hover-brand-text hover-brand-underline py-2"
                   >
                     About
                   </button>
                   <button 
                     onClick={() => navigate("/contact")} 
-                    className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
+                    className="text-left text-lg font-medium text-foreground hover-brand-text hover-brand-underline py-2"
                   >
                     Contact
                   </button>
@@ -90,19 +90,19 @@ const Navigation = () => {
           </div>
 
           <div className="flex items-center gap-1 sm:gap-2">
-            <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 sm:h-10 sm:w-10">
+            <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 sm:h-10 sm:w-10 hover-brand-bg">
               <Search className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
             {user ? (
-              <Button variant="ghost" size="icon" onClick={() => navigate("/profile")} className="rounded-full h-9 w-9 sm:h-10 sm:w-10">
+              <Button variant="ghost" size="icon" onClick={() => navigate("/profile")} className="rounded-full h-9 w-9 sm:h-10 sm:w-10 hover-brand-bg">
                 <UserCircle className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             ) : (
-              <Button variant="ghost" size="icon" onClick={() => navigate("/auth")} className="rounded-full h-9 w-9 sm:h-10 sm:w-10">
+              <Button variant="ghost" size="icon" onClick={() => navigate("/auth")} className="rounded-full h-9 w-9 sm:h-10 sm:w-10 hover-brand-bg">
                 <UserCircle className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             )}
-            <Button variant="ghost" size="icon" className="rounded-full relative h-9 w-9 sm:h-10 sm:w-10" onClick={() => setCartOpen(true)}>
+            <Button variant="ghost" size="icon" className="rounded-full relative h-9 w-9 sm:h-10 sm:w-10 hover-brand-bg" onClick={() => setCartOpen(true)}>
               <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
               {itemCount > 0 && (
                 <span className="absolute -top-1 -right-1 h-4 w-4 sm:h-5 sm:w-5 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-medium">

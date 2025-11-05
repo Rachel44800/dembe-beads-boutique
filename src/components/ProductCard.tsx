@@ -18,7 +18,7 @@ const ProductCard = ({ id, name, price, image, category }: ProductCardProps) => 
   };
 
   return (
-    <Card className="group overflow-hidden rounded-2xl border-border bg-card transition-all hover:shadow-lg">
+    <Card className="group overflow-hidden rounded-2xl border border-border bg-card hover-card-gradient">
       <CardContent className="p-0">
         <div className="relative aspect-square overflow-hidden bg-secondary/20">
           <img
@@ -35,10 +35,10 @@ const ProductCard = ({ id, name, price, image, category }: ProductCardProps) => 
       </CardContent>
       <CardFooter className="flex flex-col items-start gap-3 p-6">
         <div className="w-full">
-          <h3 className="text-lg font-semibold text-foreground">{name}</h3>
-          <p className="text-xl font-bold text-primary">{price}</p>
+          <h3 className="text-lg font-semibold text-foreground hover-brand-text">{name}</h3>
+          <p className="text-lg font-medium text-primary/90">{price}</p>
         </div>
-        <Button className="w-full rounded-full" size="sm" onClick={handleBuyNow}>
+        <Button className="w-full rounded-full hover-brand-bg" size="sm" onClick={handleBuyNow}>
           Buy Now
         </Button>
       </CardFooter>

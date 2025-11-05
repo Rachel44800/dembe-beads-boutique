@@ -40,6 +40,11 @@ All colors MUST be HSL.
     --radius: 0.5rem;
     
     --gradient-primary: linear-gradient(135deg, hsl(205 38% 75%), hsl(240 67% 94%));
+    /* Brand blue gradient for accents/hover */
+    --brand-start: 217 91% 60%; /* blue-500 */
+    --brand-end: 190 95% 55%;   /* cyan-500 */
+    --gradient-brand: linear-gradient(90deg, hsl(var(--brand-start)), hsl(var(--brand-end)));
+    --brand-shadow: 37 99% 53%;
     --gradient-soft: linear-gradient(180deg, hsl(0 0% 100%), hsl(240 67% 97%));
     
     --shadow-soft: 0 4px 20px -4px hsl(205 38% 75% / 0.2);
@@ -160,5 +165,61 @@ All colors MUST be HSL.
   
   .btn-rose {
     @apply bg-rose text-white hover:bg-opacity-90 transition-all duration-300;
+  }
+}
+
+/* Site-wide gradient accent utilities */
+@layer utilities {
+  .brand-gradient-bg {
+    background-image: var(--gradient-brand);
+  }
+
+  .hover-brand-text {
+    transition: var(--transition-smooth);
+  }
+  .hover-brand-text:hover {
+    background-image: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hover-brand-bg {
+    transition: var(--transition-smooth);
+  }
+  .hover-brand-bg:hover {
+    background-image: var(--gradient-brand);
+    color: white;
+  }
+
+  .hover-brand-underline {
+    position: relative;
+  }
+  .hover-brand-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 0;
+    background-image: var(--gradient-brand);
+    transition: width 0.3s ease;
+  }
+  .hover-brand-underline:hover::after {
+    width: 100%;
+  }
+
+  .hover-card-gradient {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .hover-card-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px -8px hsl(217 91% 60% / 0.25);
+    border-color: hsl(217 91% 70%);
+  }
+
+  .soft-foreground {
+    color: hsl(222 32% 26%);
   }
 }

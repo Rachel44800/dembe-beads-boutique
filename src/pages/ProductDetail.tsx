@@ -128,9 +128,9 @@ const ProductDetail = () => {
                 <span className="inline-block rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground mb-4">
                   {product.category}
                 </span>
-                <h1 className="text-3xl font-bold text-foreground mb-4">{product.name}</h1>
+                <h1 className="text-3xl font-semibold text-foreground hover-brand-text mb-4">{product.name}</h1>
                 <p className="text-muted-foreground mb-6">{product.description || "Handcrafted with premium materials"}</p>
-                <p className="text-3xl font-bold text-primary">{product.price}</p>
+                <p className="text-3xl font-medium text-primary/90">{product.price}</p>
               </div>
 
               {/* Quantity Selector */}

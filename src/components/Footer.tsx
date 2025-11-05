@@ -12,7 +12,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate("/about")}
-                  className="text-white/90 hover:text-white transition-colors"
+                  className="text-white/90 hover-brand-text hover-brand-underline transition-colors"
                 >
                   About Us
                 </button>
@@ -20,7 +20,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate("/contact")}
-                  className="text-white/90 hover:text-white transition-colors"
+                  className="text-white/90 hover-brand-text hover-brand-underline transition-colors"
                 >
                   Contact Us
                 </button>
@@ -28,7 +28,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate('/shipping')}
-                  className="text-white/90 hover:text-white transition-colors"
+                  className="text-white/90 hover-brand-text hover-brand-underline transition-colors"
                 >
                   Shipping & Payment Info
                 </button>
@@ -36,7 +36,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate('/privacy')}
-                  className="text-white/90 hover:text-white transition-colors"
+                  className="text-white/90 hover-brand-text hover-brand-underline transition-colors"
                 >
                   Privacy Policy
                 </button>
@@ -44,7 +44,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate('/terms')}
-                  className="text-white/90 hover:text-white transition-colors"
+                  className="text-white/90 hover-brand-text hover-brand-underline transition-colors"
                 >
                   Terms & Conditions
                 </button>
@@ -52,7 +52,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate('/returns')}
-                  className="text-white/90 hover:text-white transition-colors"
+                  className="text-white/90 hover-brand-text hover-brand-underline transition-colors"
                 >
                   Return Policy
                 </button>

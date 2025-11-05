@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import Footer from "@/components/Footer";
+import { Mail, Lock, User as UserIcon, Eye, EyeOff } from "lucide-react";
 // FeaturedProducts removed from Auth page
 
 const loginSchema = z.object({
@@ -37,6 +37,8 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 const Auth = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [showSignupPassword, setShowSignupPassword] = useState(false);
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -158,9 +160,16 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-background to-secondary/20 px-4 py-12">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
+      <div className="relative flex-1 flex items-center justify-center px-4 py-16 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-blue-200 via-cyan-100 to-sky-100" />
+        <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-blue-400/20 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl" />
+
+        <Card className="w-full max-w-md border-white/40 bg-white/80 backdrop-blur-xl shadow-2xl">
+          <CardHeader className="text-center space-y-2">
+            <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-lg animate-[pop_0.4s_ease-out]">
+              <span className="text-xl font-bold">DB</span>
+            </div>
             <CardTitle className="text-2xl">Welcome to Dembe Beads</CardTitle>
             <CardDescription>Sign in to your account or create a new one</CardDescription>
           </CardHeader>
@@ -170,8 +179,8 @@ const Auth = () => {
                 <TabsTrigger value="login">Login</TabsTrigger>
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
               </TabsList>
-              
-              <TabsContent value="login">
+
+              <TabsContent value="login" className="animate-in fade-in-0 slide-in-from-bottom-1">
                 <Form {...loginForm}>
                   <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
                     <FormField
@@ -181,7 +190,10 @@ const Auth = () => {
                         <FormItem>
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="your.email@example.com" {...field} />
+                            <div className="relative">
+                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input type="email" placeholder="your.email@example.com" {...field} className="pl-9" />
+                            </div>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -194,20 +206,38 @@ const Auth = () => {
                         <FormItem>
                           <FormLabel>Password</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder="••••••••" {...field} />
+                            <div className="relative">
+                              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input type={showLoginPassword ? "text" : "password"} placeholder="••••••••" {...field} className="pl-9 pr-9" />
+                              <button
+                                type="button"
+                                aria-label={showLoginPassword ? "Hide password" : "Show password"}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:text-foreground"
+                                onClick={() => setShowLoginPassword((v) => !v)}
+                              >
+                                {showLoginPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                              </button>
+                            </div>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full" disabled={loading}>
+                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md" disabled={loading}>
                       {loading ? "Signing in..." : "Sign In"}
                     </Button>
+
+                    <div className="relative py-2">
+                      <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-white/80 px-2 text-muted-foreground">or</span>
+                      </div>
+                    </div>
                   </form>
                 </Form>
               </TabsContent>
-              
-              <TabsContent value="signup">
+
+              <TabsContent value="signup" className="animate-in fade-in-0 slide-in-from-bottom-1">
                 <Form {...signupForm}>
                   <form onSubmit={signupForm.handleSubmit(onSignup)} className="space-y-4">
                     <FormField
@@ -217,7 +247,10 @@ const Auth = () => {
                         <FormItem>
                           <FormLabel>Full Name</FormLabel>
                           <FormControl>
-                            <Input placeholder="Your name" {...field} />
+                            <div className="relative">
+                              <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input placeholder="Your name" {...field} className="pl-9" />
+                            </div>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -230,7 +263,10 @@ const Auth = () => {
                         <FormItem>
                           <FormLabel>Email</FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="your.email@example.com" {...field} />
+                            <div className="relative">
+                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input type="email" placeholder="your.email@example.com" {...field} className="pl-9" />
+                            </div>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -243,13 +279,24 @@ const Auth = () => {
                         <FormItem>
                           <FormLabel>Password</FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder="••••••••" {...field} />
+                            <div className="relative">
+                              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input type={showSignupPassword ? "text" : "password"} placeholder="••••••••" {...field} className="pl-9 pr-9" />
+                              <button
+                                type="button"
+                                aria-label={showSignupPassword ? "Hide password" : "Show password"}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:text-foreground"
+                                onClick={() => setShowSignupPassword((v) => !v)}
+                              >
+                                {showSignupPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                              </button>
+                            </div>
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full" disabled={loading}>
+                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md" disabled={loading}>
                       {loading ? "Creating account..." : "Create Account"}
                     </Button>
                   </form>
@@ -259,7 +306,6 @@ const Auth = () => {
           </CardContent>
         </Card>
       </div>
-      <Footer />
     </div>
   );
 };
