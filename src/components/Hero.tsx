@@ -92,7 +92,7 @@ const Hero = () => {
             From statement necklaces to elegant bags, each piece tells a unique story.
           </p>
           <div className="flex justify-center">
-            <Button size="lg" variant="outline" className="rounded-md px-6 sm:px-8 text-base sm:text-lg bg-transparent text-white border-white hover:bg-white/10 hover:border-white" onClick={() => navigate('/shop')}>
+            <Button size="lg" variant="outline" className="rounded-md px-6 sm:px-8 text-base sm:text-lg bg-white/10 text-white border-white backdrop-blur-sm hover:bg-white hover:text-foreground" onClick={() => navigate('/shop')}>
               Shop Collection
             </Button>
           </div>

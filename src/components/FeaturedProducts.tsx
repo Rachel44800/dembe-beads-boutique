@@ -42,7 +42,7 @@ const FeaturedProducts = () => {
             <button
               key={product.id}
               onClick={handleClick}
-              className="group relative aspect-square overflow-hidden rounded-lg bg-secondary/20 transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="group relative aspect-square overflow-hidden rounded-lg bg-secondary/20 hover-card-gradient focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               <img
                 src={product.image}

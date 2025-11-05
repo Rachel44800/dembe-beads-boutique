@@ -42,10 +42,10 @@ const BestSellers = () => {
     <section className="py-4 sm:py-6 md:py-8 bg-white">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="mb-6 sm:mb-8 text-left">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
             Best Sellers
           </h2>
-          <p className="text-sm sm:text-base text-gray-600 max-w-2xl">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-2xl">
             Our most loved pieces, handpicked by our customers
           </p>
         </div>
@@ -57,17 +57,17 @@ const BestSellers = () => {
               onClick={handleViewAll}
               className="group text-left"
             >
-              <div className="relative aspect-square overflow-hidden rounded-lg bg-secondary/20 mb-3 sm:mb-4 transition-transform hover:scale-105">
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-secondary/20 mb-3 sm:mb-4 hover-card-gradient">
                 <img
                   src={product.image}
                   alt={product.name}
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
-              <h3 className="text-sm sm:text-base font-medium text-black mb-1 group-hover:text-primary transition-colors">
+              <h3 className="text-sm sm:text-base font-medium text-foreground mb-1 hover-brand-text">
                 {product.name}
               </h3>
-              <p className="text-sm sm:text-base font-semibold text-black">
+              <p className="text-sm sm:text-base font-semibold text-foreground">
                 {product.price}
               </p>
             </button>
