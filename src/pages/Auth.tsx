@@ -41,6 +41,7 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
+  const [resetEmailSent, setResetEmailSent] = useState(false);
 
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -160,6 +161,32 @@ const Auth = () => {
     }
   };
 
+  const onForgotPassword = async () => {
+    const email = loginForm.getValues("email");
+    if (!email) {
+      toast.error("Please enter your email address");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth`,
+      });
+
+      if (error) {
+        toast.error(error.message);
+      } else {
+        setResetEmailSent(true);
+        toast.success("Password reset link sent! Check your email.");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <div className="relative flex-1 flex items-center justify-center px-4 py-16 overflow-hidden">
@@ -228,6 +255,17 @@ const Auth = () => {
                     <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md" disabled={loading}>
                       {loading ? "Signing in..." : "Sign In"}
                     </Button>
+
+                    <div className="flex justify-end">
+                      <button
+                        type="button"
+                        onClick={onForgotPassword}
+                        className="text-sm text-primary hover-brand-text transition-colors"
+                        disabled={loading}
+                      >
+                        Forgot Password?
+                      </button>
+                    </div>
 
                     <div className="relative py-2">
                       <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
