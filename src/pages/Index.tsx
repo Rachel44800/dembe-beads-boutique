@@ -5,8 +5,10 @@ import BestSellers from "@/components/BestSellers";
 import NewArrivals from "@/components/NewArrivals";
 import PromotionalBanner from "@/components/PromotionalBanner";
 import Footer from "@/components/Footer";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Index = () => {
+  usePageTitle("Home");
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />

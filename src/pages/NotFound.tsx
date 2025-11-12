@@ -4,8 +4,10 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import { Button } from "@/components/ui/button";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const NotFound = () => {
+  usePageTitle("404 - Page Not Found");
   const location = useLocation();
   const navigate = useNavigate();
 

@@ -8,6 +8,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { products } from "@/data/products";
 import { useCart } from "@/hooks/useCart";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -16,6 +17,8 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  usePageTitle(product?.name || "Product");
 
   useEffect(() => {
     const foundProduct = products.find(p => p.id === Number(id));

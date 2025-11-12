@@ -2,8 +2,10 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PolicyNav from "@/components/PolicyNav";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Terms = () => {
+  usePageTitle("Terms & Conditions");
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navigation />

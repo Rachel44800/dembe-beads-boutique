@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Lock, User as UserIcon, Eye, EyeOff } from "lucide-react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 // FeaturedProducts removed from Auth page
 
 const loginSchema = z.object({
@@ -35,6 +36,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 type SignupFormValues = z.infer<typeof signupSchema>;
 
 const Auth = () => {
+  usePageTitle("Sign In");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);

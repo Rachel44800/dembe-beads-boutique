@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Copy } from "lucide-react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 type Order = {
   id: string;
@@ -30,6 +31,7 @@ type Order = {
 type OrderWithItems = Order & { items: Array<{ id: string; product_name: string; quantity: number; price: number }>} ;
 
 const AdminOrders = () => {
+  usePageTitle("Admin Orders");
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [orders, setOrders] = useState<OrderWithItems[]>([]);
   const [loading, setLoading] = useState(false);

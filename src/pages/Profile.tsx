@@ -11,8 +11,10 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { User as UserIcon, Package, Heart, Settings } from "lucide-react";
 import Footer from "@/components/Footer";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Profile = () => {
+  usePageTitle("Profile");
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<any>(null);

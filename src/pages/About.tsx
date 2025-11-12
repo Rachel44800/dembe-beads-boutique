@@ -2,8 +2,10 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import About from "@/components/About";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const AboutPage = () => {
+  usePageTitle("About Us");
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />

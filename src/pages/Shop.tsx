@@ -14,10 +14,12 @@ import {
 } from "@/components/ui/select";
 import { SlidersHorizontal } from "lucide-react";
 import { products as allProducts } from "@/data/products";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const categories = ["All", "Bags", "Necklaces", "Bracelets", "Earrings", "Ties", "Key Holders", "Accessories", "Clothing"];
 
 const Shop = () => {
+  usePageTitle("Shop");
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState("All");
