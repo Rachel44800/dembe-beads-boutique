@@ -6,6 +6,7 @@ import { Minus, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { products } from "@/data/products";
 import { useCart } from "@/hooks/useCart";
 import { usePageTitle } from "@/hooks/usePageTitle";
@@ -88,8 +89,13 @@ const ProductDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
         <Navigation />
+        <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-6 sm:py-8">
+          <div className="container mx-auto px-4 sm:px-6">
+            <Breadcrumbs />
+          </div>
+        </div>
         <div className="container mx-auto px-4 py-20 flex items-center justify-center">
           <p className="text-muted-foreground">Loading...</p>
         </div>
@@ -100,8 +106,13 @@ const ProductDetail = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
         <Navigation />
+        <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-6 sm:py-8">
+          <div className="container mx-auto px-4 sm:px-6">
+            <Breadcrumbs />
+          </div>
+        </div>
         <div className="container mx-auto px-4 py-20 flex items-center justify-center">
           <p className="text-muted-foreground">Product not found</p>
         </div>
@@ -111,9 +122,14 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
       <Navigation />
-      <main className="container mx-auto px-4 py-20">
+      <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-6 sm:py-8">
+        <div className="container mx-auto px-4 sm:px-6">
+          <Breadcrumbs />
+        </div>
+      </div>
+      <main className="container mx-auto px-4 py-8 sm:py-12">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Product Image */}
@@ -128,7 +144,7 @@ const ProductDetail = () => {
             {/* Product Details */}
             <div className="flex flex-col gap-6">
               <div>
-                <span className="inline-block rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground mb-4">
+                <span className="inline-block rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-3 py-1 text-xs font-medium shadow-md mb-4 hover-brand-bg">
                   {product.category}
                 </span>
                 <h1 className="text-3xl font-semibold text-foreground hover-brand-text mb-4">{product.name}</h1>

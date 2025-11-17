@@ -32,8 +32,17 @@ const signupSchema = z.object({
   fullName: z.string().trim().min(1, { message: "Full name is required" }),
 });
 
+const resetPasswordSchema = z.object({
+  password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+  confirmPassword: z.string().min(6, { message: "Password must be at least 6 characters" }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+});
+
 type LoginFormValues = z.infer<typeof loginSchema>;
 type SignupFormValues = z.infer<typeof signupSchema>;
+type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
 const Auth = () => {
   usePageTitle("Sign In");
@@ -41,6 +50,9 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showSignupPassword, setShowSignupPassword] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [showResetPasswordField, setShowResetPasswordField] = useState(false);
+  const [showConfirmPasswordField, setShowConfirmPasswordField] = useState(false);
   const [resetEmailSent, setResetEmailSent] = useState(false);
 
   const loginForm = useForm<LoginFormValues>({
@@ -60,24 +72,54 @@ const Auth = () => {
     },
   });
 
+  const resetPasswordForm = useForm<ResetPasswordFormValues>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
   useEffect(() => {
+    // Check for password reset token in URL hash
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = hashParams.get('access_token');
+    const type = hashParams.get('type');
+    
+    if (accessToken && type === 'recovery') {
+      setShowResetPassword(true);
+      sessionStorage.setItem('isResettingPassword', 'true');
+      // Clear the hash from URL
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        if (session) {
-          // Check if there's a redirect path stored
-          const redirectPath = sessionStorage.getItem("redirectAfterLogin");
-          if (redirectPath) {
-            sessionStorage.removeItem("redirectAfterLogin");
-            navigate(redirectPath);
-          } else {
-            navigate("/");
+        if (event === 'PASSWORD_RECOVERY') {
+          setShowResetPassword(true);
+          sessionStorage.setItem('isResettingPassword', 'true');
+        } else if (session) {
+          // Check if user is currently resetting password
+          const isResetting = window.location.hash.includes('type=recovery') || 
+                             sessionStorage.getItem('isResettingPassword') === 'true';
+          
+          if (!isResetting) {
+            // Check if there's a redirect path stored
+            const redirectPath = sessionStorage.getItem("redirectAfterLogin");
+            if (redirectPath) {
+              sessionStorage.removeItem("redirectAfterLogin");
+              navigate(redirectPath);
+            } else {
+              navigate("/");
+            }
           }
         }
       }
     );
 
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
+      const isResetting = window.location.hash.includes('type=recovery');
+      if (session && !isResetting) {
         const redirectPath = sessionStorage.getItem("redirectAfterLogin");
         if (redirectPath) {
           sessionStorage.removeItem("redirectAfterLogin");
@@ -161,16 +203,23 @@ const Auth = () => {
     }
   };
 
-  const onForgotPassword = async () => {
-    const email = loginForm.getValues("email");
-    if (!email) {
-      toast.error("Please enter your email address");
+  const onForgotPassword = async (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    
+    // Validate email using form validation
+    const emailValue = loginForm.getValues("email");
+    const emailValidation = await loginForm.trigger("email");
+    
+    if (!emailValue || !emailValidation) {
+      toast.error("Please enter a valid email address");
+      loginForm.setFocus("email");
       return;
     }
 
     setLoading(true);
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      const { error } = await supabase.auth.resetPasswordForEmail(emailValue, {
         redirectTo: `${window.location.origin}/auth`,
       });
 
@@ -179,6 +228,28 @@ const Auth = () => {
       } else {
         setResetEmailSent(true);
         toast.success("Password reset link sent! Check your email.");
+      }
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onResetPassword = async (data: ResetPasswordFormValues) => {
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: data.password,
+      });
+
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success("Password updated successfully! You can now sign in.");
+        sessionStorage.removeItem('isResettingPassword');
+        setShowResetPassword(false);
+        resetPasswordForm.reset();
       }
     } catch (error) {
       toast.error("An unexpected error occurred");
@@ -203,11 +274,95 @@ const Auth = () => {
             <CardDescription>Sign in to your account or create a new one</CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="login" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="login">Login</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
-              </TabsList>
+            {showResetPassword ? (
+              <Form {...resetPasswordForm}>
+                <form onSubmit={resetPasswordForm.handleSubmit(onResetPassword)} className="space-y-4">
+                  <div className="text-center mb-4">
+                    <CardTitle className="text-xl mb-2">Reset Your Password</CardTitle>
+                    <CardDescription>Enter your new password below</CardDescription>
+                  </div>
+                  <FormField
+                    control={resetPasswordForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>New Password</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input 
+                              type={showResetPasswordField ? "text" : "password"} 
+                              placeholder="••••••••" 
+                              {...field} 
+                              className="pl-9 pr-9" 
+                            />
+                            <button
+                              type="button"
+                              aria-label={showResetPasswordField ? "Hide password" : "Show password"}
+                              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:text-foreground"
+                              onClick={() => setShowResetPasswordField((v) => !v)}
+                            >
+                              {showResetPasswordField ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={resetPasswordForm.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Confirm Password</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input 
+                              type={showConfirmPasswordField ? "text" : "password"} 
+                              placeholder="••••••••" 
+                              {...field} 
+                              className="pl-9 pr-9" 
+                            />
+                            <button
+                              type="button"
+                              aria-label={showConfirmPasswordField ? "Hide password" : "Show password"}
+                              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:text-foreground"
+                              onClick={() => setShowConfirmPasswordField((v) => !v)}
+                            >
+                              {showConfirmPasswordField ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md" disabled={loading}>
+                    {loading ? "Updating password..." : "Update Password"}
+                  </Button>
+                  <Button 
+                    type="button" 
+                    variant="ghost" 
+                    className="w-full" 
+                    onClick={() => {
+                      sessionStorage.removeItem('isResettingPassword');
+                      setShowResetPassword(false);
+                      resetPasswordForm.reset();
+                    }}
+                    disabled={loading}
+                  >
+                    Back to Login
+                  </Button>
+                </form>
+              </Form>
+            ) : (
+              <Tabs defaultValue="login" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="login">Login</TabsTrigger>
+                  <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                </TabsList>
 
               <TabsContent value="login" className="animate-in fade-in-0 slide-in-from-bottom-1">
                 <Form {...loginForm}>
@@ -259,7 +414,7 @@ const Auth = () => {
                     <div className="flex justify-end">
                       <button
                         type="button"
-                        onClick={onForgotPassword}
+                        onClick={(e) => onForgotPassword(e)}
                         className="text-sm text-primary hover-brand-text transition-colors"
                         disabled={loading}
                       >
@@ -343,6 +498,7 @@ const Auth = () => {
                 </Form>
               </TabsContent>
             </Tabs>
+            )}
           </CardContent>
         </Card>
       </div>

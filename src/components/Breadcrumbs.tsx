@@ -15,14 +15,36 @@ const pathToLabel: Record<string, string> = {
   "/privacy": "Privacy Policy",
 };
 
-const getLabel = (path: string) => (pathToLabel[path] ?? path.replace(/^\//, "").split("/")[0]) || "Home";
+const getProductName = (pathname: string): string | null => {
+  const match = pathname.match(/^\/product\/(\d+)$/);
+  if (match) {
+    // Try to get product name from products data
+    try {
+      const { products } = require("@/data/products");
+      const product = products.find((p: any) => p.id === Number(match[1]));
+      return product ? product.name : "Product";
+    } catch {
+      return "Product";
+    }
+  }
+  return null;
+};
+
+const getLabel = (path: string) => {
+  if (pathToLabel[path]) return pathToLabel[path];
+  const productName = getProductName(path);
+  if (productName) return productName;
+  return path.replace(/^\//, "").split("/")[0] || "Home";
+};
 
 const Breadcrumbs = () => {
   const { previousPathname } = useRouteHistory();
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const prev = previousPathname ?? "/";
+  // For product pages, always show Shop as the previous path
+  const isProductPage = currentPath.startsWith("/product/");
+  const prev = isProductPage ? "/shop" : (previousPathname ?? "/");
 
   return (
     <nav className="text-xs sm:text-sm text-muted-foreground" aria-label="Breadcrumb">

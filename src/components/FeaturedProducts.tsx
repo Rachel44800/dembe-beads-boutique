@@ -35,7 +35,7 @@ const FeaturedProducts = () => {
   };
 
   return (
-    <section className="pt-8 sm:pt-12 pb-4 sm:pb-6 bg-white border-t border-border">
+    <section className="pt-8 sm:pt-12 pb-4 sm:pb-6 bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 border-t border-border">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
           {featuredProducts.map((product) => (

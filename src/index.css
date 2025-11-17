@@ -192,6 +192,19 @@ All colors MUST be HSL.
     color: white;
   }
 
+  .active-brand-bg {
+    background-image: linear-gradient(to right, rgb(37 99 235), rgb(6 182 212));
+    color: white;
+  }
+
+  .active-brand-bg,
+  [data-active="true"],
+  [data-state="active"],
+  [aria-selected="true"]:not([aria-selected="false"]) {
+    background-image: linear-gradient(to right, rgb(37 99 235), rgb(6 182 212));
+    color: white;
+  }
+
   .hover-brand-underline {
     position: relative;
   }
