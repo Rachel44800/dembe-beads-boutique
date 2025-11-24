@@ -7,17 +7,17 @@ import { usePageTitle } from "@/hooks/usePageTitle";
 const Privacy = () => {
   usePageTitle("Privacy Policy");
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
       <main className="flex-1">
-        <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-6 sm:py-8">
+        <div className="bg-background py-6 sm:py-8">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="mb-2">
               <Breadcrumbs />
             </div>
           </div>
         </div>
-        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
+        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 bg-background">
           <div className="mb-4">
             <PolicyNav />
           </div>

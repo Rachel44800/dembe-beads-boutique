@@ -37,7 +37,7 @@ const Categories = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-accent/30 to-background">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">
@@ -58,7 +58,7 @@ const Categories = () => {
                 onClick={() => handleCategoryClick(category.name)}
               >
                 <CardContent className="p-8">
-                  <div className={`mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${category.color}`}>
+                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary">
                     <Icon className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="mb-2 text-xl font-semibold text-foreground">

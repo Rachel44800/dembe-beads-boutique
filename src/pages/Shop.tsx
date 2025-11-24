@@ -107,38 +107,34 @@ const Shop = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
+    <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Header Section */}
-      <div className="relative bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-4 sm:py-6 overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-blue-400/10 blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl" />
-        </div>
+      <div className="relative bg-background py-4 sm:py-6">
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="mb-2">
             <Breadcrumbs />
           </div>
           <div className="text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-2">
               Shop All Products
             </h1>
-            <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
               Explore our complete collection of handcrafted beaded accessories
             </p>
           </div>
         </div>
       </div>
 
-      <section className="py-4 sm:py-6 bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
+      <section className="py-4 sm:py-6 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           {/* Top Controls Bar */}
-          <div className="bg-white/80 backdrop-blur-xl rounded-xl border border-white/50 shadow-md p-3 sm:p-4 mb-4 sm:mb-6">
+          <div className="bg-card rounded-xl border border-border shadow-sm p-3 sm:p-4 mb-4 sm:mb-6">
             <div className="flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between">
               {/* Left: Category Filter Pills */}
               <div className="flex flex-wrap gap-1.5 sm:gap-2 items-center">
-                <span className="text-xs font-semibold text-gray-700 hidden sm:inline mr-1">Categories:</span>
+                <span className="text-xs font-semibold text-foreground hidden sm:inline mr-1">Categories:</span>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {categories.map((category) => (
                     <Button
@@ -161,10 +157,10 @@ const Shop = () => {
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-stretch sm:items-center">
                 {/* Results Count & Active Filters */}
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1.5 text-gray-600">
+                  <div className="flex items-center gap-1.5 text-muted-foreground">
                     <SlidersHorizontal className="h-3.5 w-3.5" />
                     <span className="text-xs font-medium">
-                      <span className="font-bold text-gray-900">{filteredAndSortedProducts.length}</span> products
+                      <span className="font-bold text-foreground">{filteredAndSortedProducts.length}</span> products
                     </span>
                   </div>
                   {activeFiltersCount > 0 && (
@@ -172,7 +168,7 @@ const Shop = () => {
                       variant="ghost"
                       size="sm"
                       onClick={clearAllFilters}
-                      className="text-xs text-gray-600 hover:text-gray-900 h-7 px-2"
+                      className="text-xs text-muted-foreground hover:text-foreground h-7 px-2"
                     >
                       <X className="h-3 w-3 mr-1" />
                       Clear ({activeFiltersCount})
@@ -204,7 +200,7 @@ const Shop = () => {
                 <div className="flex flex-col sm:flex-row gap-2">
                   {/* Price Range Filter */}
                   <Select value={priceRange} onValueChange={setPriceRange}>
-                    <SelectTrigger className="w-full sm:w-[140px] h-9 bg-white border-gray-200 hover:border-blue-500 transition-all text-xs">
+                    <SelectTrigger className="w-full sm:w-[140px] h-9 bg-background border-border hover:border-primary transition-all text-xs">
                       <div className="flex items-center gap-1.5">
                         <Filter className="h-3.5 w-3.5 text-gray-400" />
                         <SelectValue placeholder="Price Range" />
@@ -221,7 +217,7 @@ const Shop = () => {
 
                   {/* Sort By */}
                   <Select value={sortBy} onValueChange={setSortBy}>
-                    <SelectTrigger className="w-full sm:w-[140px] h-9 bg-white border-gray-200 hover:border-blue-500 transition-all text-xs">
+                    <SelectTrigger className="w-full sm:w-[140px] h-9 bg-background border-border hover:border-primary transition-all text-xs">
                       <SelectValue placeholder="Sort by" />
                     </SelectTrigger>
                     <SelectContent>
@@ -263,10 +259,10 @@ const Shop = () => {
                   <Search className="h-6 w-6 text-gray-400" />
                 </div>
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
                 No products found
               </h3>
-              <p className="text-gray-600 text-sm mb-4 max-w-md mx-auto">
+              <p className="text-muted-foreground text-sm mb-4 max-w-md mx-auto">
                 {searchParams.get('search') 
                   ? `We couldn't find any products matching "${searchParams.get('search')}". Try adjusting your search or filters.` 
                   : "No products match your current filters. Try adjusting your selection."}
@@ -275,7 +271,7 @@ const Shop = () => {
                 <Button
                   onClick={clearAllFilters}
                   size="sm"
-                  className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white"
+                  className="bg-primary text-primary-foreground hover:opacity-90"
                 >
                   Clear All Filters
                 </Button>

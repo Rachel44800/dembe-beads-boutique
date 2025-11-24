@@ -89,9 +89,9 @@ const ProductDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
+      <div className="min-h-screen bg-background">
         <Navigation />
-        <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-6 sm:py-8">
+        <div className="bg-background py-6 sm:py-8">
           <div className="container mx-auto px-4 sm:px-6">
             <Breadcrumbs />
           </div>
@@ -106,9 +106,9 @@ const ProductDetail = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
+      <div className="min-h-screen bg-background">
         <Navigation />
-        <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-6 sm:py-8">
+        <div className="bg-background py-6 sm:py-8">
           <div className="container mx-auto px-4 sm:px-6">
             <Breadcrumbs />
           </div>
@@ -122,9 +122,9 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
+    <div className="min-h-screen bg-background">
       <Navigation />
-      <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-6 sm:py-8">
+      <div className="bg-background py-6 sm:py-8">
         <div className="container mx-auto px-4 sm:px-6">
           <Breadcrumbs />
         </div>
@@ -144,7 +144,7 @@ const ProductDetail = () => {
             {/* Product Details */}
             <div className="flex flex-col gap-6">
               <div>
-                <span className="inline-block rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-3 py-1 text-xs font-medium shadow-md mb-4 hover-brand-bg">
+                <span className="inline-block rounded-full bg-primary text-primary-foreground px-3 py-1 text-xs font-medium shadow-sm mb-4">
                   {product.category}
                 </span>
                 <h1 className="text-3xl font-semibold text-foreground hover-brand-text mb-4">{product.name}</h1>

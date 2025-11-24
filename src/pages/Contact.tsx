@@ -10,7 +10,7 @@ const ContactPage = () => {
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <div className="flex-1">
-        <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 py-6 sm:py-8">
+        <div className="bg-background py-6 sm:py-8">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="mb-2">
               <Breadcrumbs />

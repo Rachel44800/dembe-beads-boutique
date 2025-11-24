@@ -102,27 +102,25 @@ const Navigation = () => {
                   <AlignJustify className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[320px] sm:w-[360px] p-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 [&>button]:hidden">
+              <SheetContent side="left" className="w-[320px] sm:w-[360px] p-0 bg-white [&>button]:hidden">
                 <div className="relative h-full flex flex-col">
-                  {/* Header with gradient */}
-                  <div className="relative px-6 pt-8 pb-6 border-b border-gray-200/50">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-cyan-500/5 to-blue-600/5" />
+                  {/* Header */}
+                  <div className="relative px-6 pt-8 pb-6 border-b border-border">
                     <div className="relative flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <div>
-                          <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                          <h2 className="text-xl font-bold text-foreground">
                             Dembe Beads
                           </h2>
-                          <p className="text-xs text-gray-500 mt-0.5">Navigation Menu</p>
+                          <p className="text-xs text-muted-foreground mt-0.5">Navigation Menu</p>
                         </div>
                       </div>
                       <button
                         onClick={() => setMenuOpen(false)}
-                        className="group relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 hover:from-blue-600 hover:to-cyan-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 hover:scale-110 active:scale-95"
+                        className="group relative flex h-10 w-10 items-center justify-center rounded-xl bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                         aria-label="Close menu"
                       >
-                        <X className="h-5 w-5 text-gray-600 group-hover:text-white transition-colors duration-300 group-hover:rotate-90" />
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-600/0 to-cyan-500/0 group-hover:from-blue-600/20 group-hover:to-cyan-500/20 transition-all duration-300" />
+                        <X className="h-5 w-5 text-foreground group-hover:text-primary-foreground transition-colors duration-300" />
                       </button>
                     </div>
                   </div>
@@ -134,21 +132,18 @@ const Navigation = () => {
                         navigate("/");
                         setMenuOpen(false);
                       }} 
-                      className="group w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-left transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-500 hover:shadow-lg hover:shadow-blue-500/25 hover:-translate-x-1"
+                      className="group w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-left transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
                     >
-                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-gradient-to-br from-blue-100 to-cyan-100 group-hover:from-blue-500 group-hover:to-cyan-400 flex items-center justify-center transition-all duration-300">
-                        <Home className="h-5 w-5 text-blue-600 group-hover:text-white transition-colors" />
+                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-secondary group-hover:bg-primary-foreground/20 flex items-center justify-center transition-all duration-300">
+                        <Home className="h-5 w-5 text-foreground group-hover:text-primary-foreground transition-colors" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-base font-semibold text-gray-900 group-hover:text-white transition-colors">
+                        <div className="text-base font-semibold text-foreground group-hover:text-primary-foreground transition-colors">
                           Home
                         </div>
-                        <div className="text-xs text-gray-500 group-hover:text-white/80 transition-colors">
+                        <div className="text-xs text-muted-foreground group-hover:text-primary-foreground/80 transition-colors">
                           Homepage
                         </div>
-                      </div>
-                      <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="h-1.5 w-1.5 rounded-full bg-white" />
                       </div>
                     </button>
 
@@ -157,21 +152,18 @@ const Navigation = () => {
                         navigate("/shop", { state: { from: "home" } });
                         setMenuOpen(false);
                       }} 
-                      className="group w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-left transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-500 hover:shadow-lg hover:shadow-blue-500/25 hover:-translate-x-1"
+                      className="group w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-left transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
                     >
-                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-gradient-to-br from-blue-100 to-cyan-100 group-hover:from-blue-500 group-hover:to-cyan-400 flex items-center justify-center transition-all duration-300">
-                        <Store className="h-5 w-5 text-blue-600 group-hover:text-white transition-colors" />
+                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-secondary group-hover:bg-primary-foreground/20 flex items-center justify-center transition-all duration-300">
+                        <Store className="h-5 w-5 text-foreground group-hover:text-primary-foreground transition-colors" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-base font-semibold text-gray-900 group-hover:text-white transition-colors">
+                        <div className="text-base font-semibold text-foreground group-hover:text-primary-foreground transition-colors">
                           Shop
                         </div>
-                        <div className="text-xs text-gray-500 group-hover:text-white/80 transition-colors">
+                        <div className="text-xs text-muted-foreground group-hover:text-primary-foreground/80 transition-colors">
                           Browse all products
                         </div>
-                      </div>
-                      <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="h-1.5 w-1.5 rounded-full bg-white" />
                       </div>
                     </button>
 
@@ -180,21 +172,18 @@ const Navigation = () => {
                         navigate("/about");
                         setMenuOpen(false);
                       }} 
-                      className="group w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-left transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-500 hover:shadow-lg hover:shadow-blue-500/25 hover:-translate-x-1"
+                      className="group w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-left transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
                     >
-                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-gradient-to-br from-blue-100 to-cyan-100 group-hover:from-blue-500 group-hover:to-cyan-400 flex items-center justify-center transition-all duration-300">
-                        <Info className="h-5 w-5 text-blue-600 group-hover:text-white transition-colors" />
+                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-secondary group-hover:bg-primary-foreground/20 flex items-center justify-center transition-all duration-300">
+                        <Info className="h-5 w-5 text-foreground group-hover:text-primary-foreground transition-colors" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-base font-semibold text-gray-900 group-hover:text-white transition-colors">
+                        <div className="text-base font-semibold text-foreground group-hover:text-primary-foreground transition-colors">
                           About
                         </div>
-                        <div className="text-xs text-gray-500 group-hover:text-white/80 transition-colors">
+                        <div className="text-xs text-muted-foreground group-hover:text-primary-foreground/80 transition-colors">
                           Our story & mission
                         </div>
-                      </div>
-                      <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="h-1.5 w-1.5 rounded-full bg-white" />
                       </div>
                     </button>
 
@@ -203,28 +192,25 @@ const Navigation = () => {
                         navigate("/contact");
                         setMenuOpen(false);
                       }} 
-                      className="group w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-left transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-500 hover:shadow-lg hover:shadow-blue-500/25 hover:-translate-x-1"
+                      className="group w-full flex items-center gap-4 px-4 py-3.5 rounded-xl text-left transition-all duration-300 hover:bg-primary hover:text-primary-foreground"
                     >
-                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-gradient-to-br from-blue-100 to-cyan-100 group-hover:from-blue-500 group-hover:to-cyan-400 flex items-center justify-center transition-all duration-300">
-                        <Mail className="h-5 w-5 text-blue-600 group-hover:text-white transition-colors" />
+                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-secondary group-hover:bg-primary-foreground/20 flex items-center justify-center transition-all duration-300">
+                        <Mail className="h-5 w-5 text-foreground group-hover:text-primary-foreground transition-colors" />
                       </div>
                       <div className="flex-1">
-                        <div className="text-base font-semibold text-gray-900 group-hover:text-white transition-colors">
+                        <div className="text-base font-semibold text-foreground group-hover:text-primary-foreground transition-colors">
                           Contact
                         </div>
-                        <div className="text-xs text-gray-500 group-hover:text-white/80 transition-colors">
+                        <div className="text-xs text-muted-foreground group-hover:text-primary-foreground/80 transition-colors">
                           Get in touch with us
                         </div>
-                      </div>
-                      <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="h-1.5 w-1.5 rounded-full bg-white" />
                       </div>
                     </button>
                   </div>
 
                   {/* Footer */}
-                  <div className="px-6 py-4 border-t border-gray-200/50">
-                    <div className="text-xs text-gray-500 text-center">
+                  <div className="px-6 py-4 border-t border-border">
+                    <div className="text-xs text-muted-foreground text-center">
                       <p>© 2025 Dembe Beads</p>
                     </div>
                   </div>

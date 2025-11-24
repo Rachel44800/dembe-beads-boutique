@@ -39,7 +39,7 @@ const NewArrivals = () => {
   };
 
   return (
-    <section className="py-4 sm:py-6 md:py-8 bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
+    <section className="py-4 sm:py-6 md:py-8 bg-background">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="mb-6 sm:mb-8 text-left">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">

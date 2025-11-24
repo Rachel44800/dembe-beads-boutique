@@ -30,7 +30,7 @@ const ProductCard = ({ id, name, price, image, category, viewMode = "grid" }: Pr
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute top-3 left-3">
-                <span className="rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-3 py-1 text-xs font-medium shadow-md hover:from-blue-500 hover:to-cyan-400 transition-all duration-300 cursor-default">
+                <span className="rounded-full bg-primary text-primary-foreground px-3 py-1 text-xs font-medium shadow-sm cursor-default">
                   {category}
                 </span>
               </div>
@@ -38,11 +38,11 @@ const ProductCard = ({ id, name, price, image, category, viewMode = "grid" }: Pr
           </CardContent>
           <CardFooter className="flex-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-6">
             <div className="flex-1">
-              <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{name}</h3>
-              <p className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">{price}</p>
+              <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{name}</h3>
+              <p className="text-xl font-bold text-primary">{price}</p>
             </div>
             <Button 
-              className="w-full sm:w-auto min-w-[120px] rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md hover:shadow-lg transition-all" 
+              className="w-full sm:w-auto min-w-[120px] rounded-full bg-primary text-primary-foreground hover:opacity-90 shadow-sm hover:shadow-md transition-all" 
               size="default" 
               onClick={handleBuyNow}
             >
@@ -64,7 +64,7 @@ const ProductCard = ({ id, name, price, image, category, viewMode = "grid" }: Pr
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           <div className="absolute top-4 left-4">
-            <span className="rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-3 py-1 text-xs font-medium shadow-md hover:from-blue-500 hover:to-cyan-400 transition-all duration-300 cursor-default">
+            <span className="rounded-full bg-primary text-primary-foreground px-3 py-1 text-xs font-medium shadow-sm cursor-default">
               {category}
             </span>
           </div>
@@ -72,11 +72,11 @@ const ProductCard = ({ id, name, price, image, category, viewMode = "grid" }: Pr
       </CardContent>
       <CardFooter className="flex flex-col items-start gap-3 p-6">
         <div className="w-full">
-          <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">{name}</h3>
-          <p className="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">{price}</p>
+          <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">{name}</h3>
+          <p className="text-lg font-bold text-primary">{price}</p>
         </div>
         <Button 
-          className="w-full rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md hover:shadow-lg transition-all" 
+          className="w-full rounded-full bg-primary text-primary-foreground hover:opacity-90 shadow-sm hover:shadow-md transition-all" 
           size="sm" 
           onClick={handleBuyNow}
         >

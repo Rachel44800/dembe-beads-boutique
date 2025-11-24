@@ -6,7 +6,7 @@ const PromotionalBanner = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-4 sm:py-6 md:py-8 bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50">
+    <section className="py-4 sm:py-6 md:py-8 bg-background">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left: Text Content */}

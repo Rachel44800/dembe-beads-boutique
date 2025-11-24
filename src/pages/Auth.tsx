@@ -259,50 +259,50 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-background">
       <div className="relative flex-1 flex items-center justify-center px-4 py-16 overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-blue-200 via-cyan-100 to-sky-100" />
-        <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-blue-400/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-background" />
 
-        <Card className="w-full max-w-md border-white/40 bg-white/80 backdrop-blur-xl shadow-2xl">
-          <CardHeader className="text-center space-y-2">
-            <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-lg animate-[pop_0.4s_ease-out]">
-              <span className="text-xl font-bold">DB</span>
+        <Card className="w-full max-w-md border border-border/50 bg-card/95 backdrop-blur-sm shadow-xl">
+          <CardHeader className="text-center space-y-4 pb-8">
+            <div className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-foreground/10 animate-[pop_0.4s_ease-out]">
+              <span className="text-2xl font-bold">DB</span>
             </div>
-            <CardTitle className="text-2xl">Welcome to Dembe Beads</CardTitle>
-            <CardDescription>Sign in to your account or create a new one</CardDescription>
+            <div className="space-y-2">
+              <CardTitle className="text-3xl font-bold text-foreground">Welcome to Dembe Beads</CardTitle>
+              <CardDescription className="text-base">Sign in to your account or create a new one</CardDescription>
+            </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-6 pb-6">
             {showResetPassword ? (
               <Form {...resetPasswordForm}>
-                <form onSubmit={resetPasswordForm.handleSubmit(onResetPassword)} className="space-y-4">
-                  <div className="text-center mb-4">
-                    <CardTitle className="text-xl mb-2">Reset Your Password</CardTitle>
-                    <CardDescription>Enter your new password below</CardDescription>
+                <form onSubmit={resetPasswordForm.handleSubmit(onResetPassword)} className="space-y-5">
+                  <div className="text-center mb-6">
+                    <CardTitle className="text-2xl font-bold mb-2 text-foreground">Reset Your Password</CardTitle>
+                    <CardDescription className="text-base">Enter your new password below</CardDescription>
                   </div>
                   <FormField
                     control={resetPasswordForm.control}
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>New Password</FormLabel>
+                        <FormLabel className="text-sm font-semibold text-foreground">New Password</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-foreground" />
                             <Input 
                               type={showResetPasswordField ? "text" : "password"} 
-                              placeholder="••••••••" 
+                              placeholder="Enter your new password" 
                               {...field} 
-                              className="pl-9 pr-9" 
+                              className="pl-11 pr-11 h-11 border-2 focus:border-foreground focus:ring-foreground" 
                             />
                             <button
                               type="button"
                               aria-label={showResetPasswordField ? "Hide password" : "Show password"}
-                              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:text-foreground"
+                              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-muted-foreground hover:text-foreground transition-colors"
                               onClick={() => setShowResetPasswordField((v) => !v)}
                             >
-                              {showResetPasswordField ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                              {showResetPasswordField ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                             </button>
                           </div>
                         </FormControl>
@@ -315,23 +315,23 @@ const Auth = () => {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Confirm Password</FormLabel>
+                        <FormLabel className="text-sm font-semibold text-foreground">Confirm Password</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-foreground" />
                             <Input 
                               type={showConfirmPasswordField ? "text" : "password"} 
-                              placeholder="••••••••" 
+                              placeholder="Confirm your new password" 
                               {...field} 
-                              className="pl-9 pr-9" 
+                              className="pl-11 pr-11 h-11 border-2 focus:border-foreground focus:ring-foreground" 
                             />
                             <button
                               type="button"
                               aria-label={showConfirmPasswordField ? "Hide password" : "Show password"}
-                              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:text-foreground"
+                              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-muted-foreground hover:text-foreground transition-colors"
                               onClick={() => setShowConfirmPasswordField((v) => !v)}
                             >
-                              {showConfirmPasswordField ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                              {showConfirmPasswordField ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                             </button>
                           </div>
                         </FormControl>
@@ -339,7 +339,7 @@ const Auth = () => {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md" disabled={loading}>
+                  <Button type="submit" className="w-full h-11 bg-blue-primary text-blue-primary-foreground shadow-md hover:shadow-lg transition-all font-semibold text-base" disabled={loading}>
                     {loading ? "Updating password..." : "Update Password"}
                   </Button>
                   <Button 
@@ -359,24 +359,24 @@ const Auth = () => {
               </Form>
             ) : (
               <Tabs defaultValue="login" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="login">Login</TabsTrigger>
-                  <TabsTrigger value="signup">Sign Up</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 h-12 bg-secondary/50 p-1 rounded-lg">
+                  <TabsTrigger value="login" className="rounded-md data-[state=active]:bg-blue-primary data-[state=active]:text-blue-primary-foreground font-semibold transition-all">Login</TabsTrigger>
+                  <TabsTrigger value="signup" className="rounded-md data-[state=active]:bg-blue-primary data-[state=active]:text-blue-primary-foreground font-semibold transition-all">Sign Up</TabsTrigger>
                 </TabsList>
 
-              <TabsContent value="login" className="animate-in fade-in-0 slide-in-from-bottom-1">
+              <TabsContent value="login" className="animate-in fade-in-0 slide-in-from-bottom-1 mt-6">
                 <Form {...loginForm}>
-                  <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
+                  <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-5">
                     <FormField
                       control={loginForm.control}
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
+                          <FormLabel className="text-sm font-semibold text-foreground">Email</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                              <Input type="email" placeholder="your.email@example.com" {...field} className="pl-9" />
+                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-foreground" />
+                              <Input type="email" placeholder="your.email@example.com" {...field} className="pl-11 h-11 border-2 focus:border-foreground focus:ring-foreground" />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -388,18 +388,18 @@ const Auth = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel className="text-sm font-semibold text-foreground">Password</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                              <Input type={showLoginPassword ? "text" : "password"} placeholder="••••••••" {...field} className="pl-9 pr-9" />
+                              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-foreground" />
+                              <Input type={showLoginPassword ? "text" : "password"} placeholder="Enter your password" {...field} className="pl-11 pr-11 h-11 border-2 focus:border-foreground focus:ring-foreground" />
                               <button
                                 type="button"
                                 aria-label={showLoginPassword ? "Hide password" : "Show password"}
-                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:text-foreground"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-muted-foreground hover:text-foreground transition-colors"
                                 onClick={() => setShowLoginPassword((v) => !v)}
                               >
-                                {showLoginPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                {showLoginPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                               </button>
                             </div>
                           </FormControl>
@@ -407,44 +407,37 @@ const Auth = () => {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md" disabled={loading}>
-                      {loading ? "Signing in..." : "Sign In"}
-                    </Button>
-
-                    <div className="flex justify-end">
+                    <div className="flex items-center justify-between pt-1">
+                      <div></div>
                       <button
                         type="button"
                         onClick={(e) => onForgotPassword(e)}
-                        className="text-sm text-primary hover-brand-text transition-colors"
+                        className="text-sm font-medium text-foreground hover:underline transition-colors"
                         disabled={loading}
                       >
                         Forgot Password?
                       </button>
                     </div>
-
-                    <div className="relative py-2">
-                      <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
-                      <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-white/80 px-2 text-muted-foreground">or</span>
-                      </div>
-                    </div>
+                    <Button type="submit" className="w-full h-11 bg-blue-primary text-blue-primary-foreground shadow-md hover:shadow-lg transition-all font-semibold text-base" disabled={loading}>
+                      {loading ? "Signing in..." : "Sign In"}
+                    </Button>
                   </form>
                 </Form>
               </TabsContent>
 
-              <TabsContent value="signup" className="animate-in fade-in-0 slide-in-from-bottom-1">
+              <TabsContent value="signup" className="animate-in fade-in-0 slide-in-from-bottom-1 mt-6">
                 <Form {...signupForm}>
-                  <form onSubmit={signupForm.handleSubmit(onSignup)} className="space-y-4">
+                  <form onSubmit={signupForm.handleSubmit(onSignup)} className="space-y-5">
                     <FormField
                       control={signupForm.control}
                       name="fullName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Full Name</FormLabel>
+                          <FormLabel className="text-sm font-semibold text-foreground">Full Name</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                              <Input placeholder="Your name" {...field} className="pl-9" />
+                              <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-foreground" />
+                              <Input placeholder="Enter your full name" {...field} className="pl-11 h-11 border-2 focus:border-foreground focus:ring-foreground" />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -456,11 +449,11 @@ const Auth = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
+                          <FormLabel className="text-sm font-semibold text-foreground">Email</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                              <Input type="email" placeholder="your.email@example.com" {...field} className="pl-9" />
+                              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-foreground" />
+                              <Input type="email" placeholder="your.email@example.com" {...field} className="pl-11 h-11 border-2 focus:border-foreground focus:ring-foreground" />
                             </div>
                           </FormControl>
                           <FormMessage />
@@ -472,18 +465,18 @@ const Auth = () => {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel className="text-sm font-semibold text-foreground">Password</FormLabel>
                           <FormControl>
                             <div className="relative">
-                              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                              <Input type={showSignupPassword ? "text" : "password"} placeholder="••••••••" {...field} className="pl-9 pr-9" />
+                              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-foreground" />
+                              <Input type={showSignupPassword ? "text" : "password"} placeholder="Create a password" {...field} className="pl-11 pr-11 h-11 border-2 focus:border-foreground focus:ring-foreground" />
                               <button
                                 type="button"
                                 aria-label={showSignupPassword ? "Hide password" : "Show password"}
-                                className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:text-foreground"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-muted-foreground hover:text-foreground transition-colors"
                                 onClick={() => setShowSignupPassword((v) => !v)}
                               >
-                                {showSignupPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                {showSignupPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                               </button>
                             </div>
                           </FormControl>
@@ -491,7 +484,7 @@ const Auth = () => {
                         </FormItem>
                       )}
                     />
-                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md" disabled={loading}>
+                    <Button type="submit" className="w-full h-11 bg-blue-primary text-blue-primary-foreground shadow-md hover:shadow-lg transition-all font-semibold text-base" disabled={loading}>
                       {loading ? "Creating account..." : "Create Account"}
                     </Button>
                   </form>

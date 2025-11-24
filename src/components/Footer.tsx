@@ -4,15 +4,15 @@ import { useNavigate } from "react-router-dom";
 const Footer = () => {
   const navigate = useNavigate();
   return (
-    <footer className="border-t border-blue-200/50 bg-gradient-to-br from-blue-600 via-cyan-600 to-blue-600 py-6 sm:py-8">
-      <div className="container mx-auto px-4 sm:px-6 text-white">
+    <footer className="border-t border-border bg-primary py-6 sm:py-8">
+      <div className="container mx-auto px-4 sm:px-6 text-primary-foreground">
         <div className="grid gap-6 sm:gap-8">
           <div>
             <ul className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm">
               <li>
                 <button 
                   onClick={() => navigate("/about")}
-                  className="text-white/90 hover:text-white hover:underline transition-colors"
+                  className="text-primary-foreground/90 hover:text-primary-foreground hover:underline transition-colors"
                 >
                   About Us
                 </button>
@@ -20,7 +20,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate("/contact")}
-                  className="text-white/90 hover:text-white hover:underline transition-colors"
+                  className="text-primary-foreground/90 hover:text-primary-foreground hover:underline transition-colors"
                 >
                   Contact Us
                 </button>
@@ -28,7 +28,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate('/shipping')}
-                  className="text-white/90 hover:text-white hover:underline transition-colors"
+                  className="text-primary-foreground/90 hover:text-primary-foreground hover:underline transition-colors"
                 >
                   Shipping & Payment Info
                 </button>
@@ -36,7 +36,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate('/privacy')}
-                  className="text-white/90 hover:text-white hover:underline transition-colors"
+                  className="text-primary-foreground/90 hover:text-primary-foreground hover:underline transition-colors"
                 >
                   Privacy Policy
                 </button>
@@ -44,7 +44,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate('/terms')}
-                  className="text-white/90 hover:text-white hover:underline transition-colors"
+                  className="text-primary-foreground/90 hover:text-primary-foreground hover:underline transition-colors"
                 >
                   Terms & Conditions
                 </button>
@@ -52,7 +52,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => navigate('/returns')}
-                  className="text-white/90 hover:text-white hover:underline transition-colors"
+                  className="text-primary-foreground/90 hover:text-primary-foreground hover:underline transition-colors"
                 >
                   Return Policy
                 </button>
@@ -61,7 +61,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 text-center text-xs sm:text-sm text-white/80">
+        <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 text-center text-xs sm:text-sm text-primary-foreground/80">
           <p>&copy; 2025 Dembe Beads. All rights reserved.</p>
         </div>
       </div>

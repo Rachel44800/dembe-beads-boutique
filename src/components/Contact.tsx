@@ -64,18 +64,12 @@ const Contact = () => {
   };
 
   return (
-    <section className="relative py-12 sm:py-16 md:py-24 bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-blue-400/10 blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-r from-blue-200/5 to-cyan-200/5 blur-3xl" />
-      </div>
+    <section className="relative py-12 sm:py-16 md:py-24 bg-background overflow-hidden">
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header Section */}
         <div className="mb-8 sm:mb-10 text-center">
-          <h1 className="mb-3 text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="mb-3 text-4xl sm:text-5xl md:text-6xl font-bold text-foreground">
             Get In Touch
           </h1>
           <p className="mx-auto max-w-2xl text-lg sm:text-xl text-gray-600 leading-relaxed">
@@ -90,11 +84,10 @@ const Contact = () => {
           {/* Left Column - Contact Info Cards */}
           <div className="lg:col-span-1 space-y-6">
             {/* Contact Information Card */}
-            <div className="group relative rounded-2xl border border-white/50 bg-white/80 backdrop-blur-xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="group relative rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
               <div className="relative">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
                     <MessageSquare className="h-6 w-6" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900">Contact Information</h3>
@@ -102,34 +95,34 @@ const Contact = () => {
                 <div className="space-y-5">
                   <a 
                     href="mailto:dembemandavha@gmail.com" 
-                    className="group/item flex items-start gap-4 p-3 rounded-xl hover:bg-blue-50/50 transition-colors duration-200"
+                    className="group/item flex items-start gap-4 p-3 rounded-xl hover:bg-secondary transition-colors duration-200"
                   >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-blue-100 text-blue-600 group-hover/item:bg-blue-200 transition-colors">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-secondary text-primary group-hover/item:bg-primary group-hover/item:text-primary-foreground transition-colors">
                       <Mail className="h-5 w-5" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Email</p>
-                      <p className="text-base font-medium text-gray-900 break-all group-hover/item:text-blue-600 transition-colors">
+                      <p className="text-base font-medium text-foreground break-all group-hover/item:text-primary transition-colors">
                         dembemandavha@gmail.com
                       </p>
                     </div>
                   </a>
                   <a 
                     href="tel:+27793637793" 
-                    className="group/item flex items-start gap-4 p-3 rounded-xl hover:bg-cyan-50/50 transition-colors duration-200"
+                    className="group/item flex items-start gap-4 p-3 rounded-xl hover:bg-secondary transition-colors duration-200"
                   >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-cyan-100 text-cyan-600 group-hover/item:bg-cyan-200 transition-colors">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-secondary text-primary group-hover/item:bg-primary group-hover/item:text-primary-foreground transition-colors">
                       <Phone className="h-5 w-5" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-1">Phone</p>
-                      <p className="text-base font-medium text-gray-900 group-hover/item:text-cyan-600 transition-colors">
+                      <p className="text-base font-medium text-foreground group-hover/item:text-primary transition-colors">
                         +27 79 363 7793
                       </p>
                     </div>
                   </a>
                   <div className="flex items-start gap-4 p-3 rounded-xl">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-purple-100 text-purple-600">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-secondary text-primary">
                       <MapPin className="h-5 w-5" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -144,11 +137,10 @@ const Contact = () => {
             </div>
 
             {/* Business Hours Card */}
-            <div className="group relative rounded-2xl border border-white/50 bg-white/80 backdrop-blur-xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="group relative rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
               <div className="relative">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 text-white shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
                     <Clock className="h-6 w-6" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900">Business Hours</h3>
@@ -171,16 +163,15 @@ const Contact = () => {
             </div>
 
             {/* Social Media Card */}
-            <div className="group relative rounded-2xl border border-white/50 bg-white/80 backdrop-blur-xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="group relative rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
               <div className="relative">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Follow Us</h3>
+                <h3 className="text-xl font-bold text-foreground mb-6">Follow Us</h3>
                 <div className="flex items-center gap-4">
                   <a 
                     href="https://www.instagram.com/dembe_beads?igsh=dDBxOXpmNWp5b285" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
+                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm hover:opacity-90 hover:scale-110 transition-all duration-200"
                   >
                     <Instagram className="h-6 w-6" />
                   </a>
@@ -191,11 +182,10 @@ const Contact = () => {
 
           {/* Right Column - Contact Form */}
           <div className="lg:col-span-2">
-            <div className="group relative rounded-2xl border border-white/50 bg-white/80 backdrop-blur-xl p-6 sm:p-8 lg:p-10 shadow-xl hover:shadow-2xl transition-all duration-300">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/5 via-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="group relative rounded-2xl border border-border bg-card p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-md transition-all duration-300">
               <div className="relative">
                 <div className="flex items-center gap-3 mb-8">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
                     <Send className="h-6 w-6" />
                   </div>
                   <div>
@@ -279,7 +269,7 @@ const Contact = () => {
                     />
                     <Button 
                       type="submit" 
-                      className="w-full h-12 text-base font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
+                      className="w-full h-12 text-base font-semibold bg-primary text-primary-foreground hover:opacity-90 shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-50"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
