@@ -127,71 +127,26 @@ const Checkout = () => {
     }
 
     try {
-      // Check if user is authenticated
+      // Get current user (may be null for guest checkout)
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      if (!user) {
-        toast.error("Please log in to complete your order");
-        navigate("/auth");
-        return;
-      }
 
-      // Ensure user profile exists (required for foreign key constraint)
-      // Use upsert to create or update profile in one operation
-      const { error: profileError } = await supabase
-        .from("profiles")
-        .upsert(
-          {
-            id: user.id,
-            email: user.email || formData.email,
-            full_name: formData.fullName,
-            phone: formData.phone,
-          },
-          {
-            onConflict: "id",
-          }
-        );
-
-      if (profileError) {
-        console.error("Profile upsert error:", profileError);
-        // If upsert fails due to RLS, try insert first, then update
-        const { data: existingProfile } = await supabase
+      // If logged in, ensure profile exists
+      if (user) {
+        const { error: profileError } = await supabase
           .from("profiles")
-          .select("id")
-          .eq("id", user.id)
-          .single();
-
-        if (!existingProfile) {
-          // Try insert
-          const { error: insertError } = await supabase
-            .from("profiles")
-            .insert([
-              {
-                id: user.id,
-                email: user.email || formData.email,
-                full_name: formData.fullName,
-                phone: formData.phone,
-              },
-            ]);
-
-          if (insertError) {
-            throw new Error(`Failed to create profile: ${insertError.message}. Please ensure your database migration has been applied.`);
-          }
-        } else {
-          // Update existing
-          const { error: updateError } = await supabase
-            .from("profiles")
-            .update({
+          .upsert(
+            {
+              id: user.id,
+              email: user.email || formData.email,
               full_name: formData.fullName,
               phone: formData.phone,
-              email: formData.email,
-            })
-            .eq("id", user.id);
-
-          if (updateError) {
-            throw new Error(`Failed to update profile: ${updateError.message}`);
-          }
+            },
+            { onConflict: "id" }
+          );
+        if (profileError) {
+          console.error("Profile upsert error:", profileError);
         }
       }
 
@@ -201,12 +156,14 @@ const Checkout = () => {
       // Generate order number
       const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
 
-      // Create order
+      // Create order (user_id null for guests)
       const { data: order, error: orderError } = await supabase
         .from("orders")
         .insert([
           {
-            user_id: user.id,
+            user_id: user?.id ?? null,
+            guest_email: user ? null : formData.email,
+            guest_name: user ? null : formData.fullName,
             order_number: orderNumber,
             total_amount: total,
             shipping_address: shippingAddress,
@@ -218,7 +175,7 @@ const Checkout = () => {
             postnet_branch: formData.shippingMethod === "postnet" ? formData.postnetBranch : null,
             pep_address: formData.shippingMethod === "pep" ? formData.pepAddress : null,
             notes: formData.notes || null,
-          },
+          } as any,
         ])
         .select()
         .single();
