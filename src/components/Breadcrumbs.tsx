@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useRouteHistory } from "@/contexts/RouteHistoryContext";
+import { products } from "@/data/products";
 
 const pathToLabel: Record<string, string> = {
   "/": "Home",
@@ -18,14 +19,8 @@ const pathToLabel: Record<string, string> = {
 const getProductName = (pathname: string): string | null => {
   const match = pathname.match(/^\/product\/(\d+)$/);
   if (match) {
-    // Try to get product name from products data
-    try {
-      const { products } = require("@/data/products");
-      const product = products.find((p: any) => p.id === Number(match[1]));
-      return product ? product.name : "Product";
-    } catch {
-      return "Product";
-    }
+    const product = products.find((p: any) => p.id === Number(match[1]));
+    return product ? product.name : "Product";
   }
   return null;
 };

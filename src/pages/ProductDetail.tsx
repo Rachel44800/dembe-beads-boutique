@@ -73,17 +73,7 @@ const ProductDetail = () => {
       }
     }
 
-    // Check if user is authenticated
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (!user) {
-      // Store the intended destination to return to checkout after login
-      sessionStorage.setItem("redirectAfterLogin", "/checkout");
-      navigate("/auth");
-      return;
-    }
-    
-    // Navigate to checkout
+    // Navigate to checkout (guests allowed)
     navigate("/checkout");
   };
 

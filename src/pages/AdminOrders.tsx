@@ -87,7 +87,7 @@ const AdminOrders = () => {
     try {
       const { error } = await supabase
         .from("orders")
-        .update({ payment_status: "deposit_confirmed", deposit_received_at: new Date().toISOString() })
+        .update({ payment_status: "deposit_confirmed" } as any)
         .eq("id", order.id);
       if (error) throw error;
       toast.success(`Deposit confirmed for ${order.order_number}`);

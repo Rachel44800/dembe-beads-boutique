@@ -164,6 +164,8 @@ export type Database = {
           created_at: string
           currency: string | null
           deposit_required: number | null
+          guest_email: string | null
+          guest_name: string | null
           id: string
           notes: string | null
           order_number: string
@@ -176,12 +178,14 @@ export type Database = {
           status: string
           total_amount: number
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
           currency?: string | null
           deposit_required?: number | null
+          guest_email?: string | null
+          guest_name?: string | null
           id?: string
           notes?: string | null
           order_number: string
@@ -194,12 +198,14 @@ export type Database = {
           status?: string
           total_amount: number
           updated_at?: string
-          user_id: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
           currency?: string | null
           deposit_required?: number | null
+          guest_email?: string | null
+          guest_name?: string | null
           id?: string
           notes?: string | null
           order_number?: string
@@ -212,7 +218,7 @@ export type Database = {
           status?: string
           total_amount?: number
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: [
           {
