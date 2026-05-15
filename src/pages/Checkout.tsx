@@ -210,7 +210,7 @@ const Checkout = () => {
       // Clear cart and show success
       clearCart();
       toast.success("Order placed successfully! We will confirm your 50% deposit.");
-      navigate("/profile");
+      navigate(user ? "/profile" : "/");
     } catch (error: any) {
       console.error("Checkout error:", error);
       const errorMessage = error?.message || error?.toString() || "Failed to place order. Please try again.";
