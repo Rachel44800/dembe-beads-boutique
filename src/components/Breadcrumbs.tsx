@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useRouteHistory } from "@/contexts/RouteHistoryContext";
+import { products } from "@/data/products";
 
 const pathToLabel: Record<string, string> = {
   "/": "Home",
