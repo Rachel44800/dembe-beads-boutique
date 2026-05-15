@@ -95,12 +95,6 @@ const Checkout = () => {
       newErrors.email = "Please enter a valid email address";
     }
 
-    // Check if email matches logged-in user
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user && formData.email !== user.email) {
-      newErrors.email = "Email must match your logged-in account";
-    }
-
     // Required fields
     if (!formData.fullName?.trim()) newErrors.fullName = "Full name is required";
     if (!formData.address?.trim()) newErrors.address = "Address is required";
